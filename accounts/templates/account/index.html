@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block main %}
+<a
+	href="{% url 'account:logout' %}"
+	class="nav-link text-light bg-danger w-auto"
+>
+	<i class="fa fa-sign-out"></i><span> Log out</span></a
+>
+<a href="{% url 'institution:institutions' %}" class="nav-link text-light">
+	<i class="fa fa-institution"></i> <span>institutions</span></a
+>
+<a href="{% url 'group:groups' %}" class="nav-link text-light">
+    <i class="fa fa-group"></i> <span>groups</span>
+</a>
+{% endblock main %}

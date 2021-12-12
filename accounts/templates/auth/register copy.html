@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Register New Account</title>
+		<link rel="stylesheet" href="{% static 'auth/register.css' %}" />
+	</head>
+	<body>
+		<div class="wrapper">
+
+            <div class="app-desc">
+                <h2>
+                    Indigeneous Citizens of
+                    <div class="app-desc-span">
+                        <span style="color: rgb(9, 248, 9);">Ni</span><span>ger</span><span style="color: rgb(9, 248, 9);">ia</span> 
+                    </div> 
+                </h2>
+                <div class="app-about">
+                    <p>
+                    
+                        by Knowing our right, by know our obligations, by knowing our responsiblities to the state <br>
+                        we can develop our only country <b>Nigeria</b>...
+    
+                        <br>
+    
+                        let's join, unite and explore each other, through sharing of experiance, feelings, thought and understanding a situation we can solve our problems by the will of the Almighty...
+    
+    
+    
+                    </p>
+                </div>
+            </div>
+    
+
+			<div class="register-wrapper">
+				<h2>Register new user</h2>
+				<form  method="post">
+					{% csrf_token %} {% if error %}
+					<p>{{error}}</p>
+					{% endif %}
+
+					<div class="input-wrapper">
+						<input
+							type="text"
+							name="username"
+							placeholder="username"
+							required
+						/>
+						<br />
+						<input type="email" name="email" placeholder="email" required />
+					</div>
+
+					<div class="input-wrapper">
+						<input
+							type="text"
+							name="fullname"
+							placeholder="full name"
+							required
+						/>
+						<br />
+						<input type="date" name="date of birth" required />
+					</div>
+
+					<div class="input-wrapper">
+						<input
+							type="password"
+							name="password1"
+							placeholder="create password"
+						/>
+						<small id="cp"> Not valid</small>
+						<br />
+						<input
+							type="password"
+							name="password2"
+							placeholder="confirm password
+						"
+
+						/>
+						<small id='con'>Password didn't match</small>
+
+					</div>
+
+					<div class="input-wrapper">
+						<label for="state">
+							Faculty <br />
+							<select name="faculty" class="faculty">
+								<option value="------">------</option>
+								{% for s in faculty.all %}
+									<option value="{{s.name}}">{{s.name}}</option>
+								{% endfor %}
+							</select>
+						</label>
+						<br />
+						<label for="localGov">
+							Department <br />
+							<select name="department" class="department">
+								<option value="------">------</option>
+							</select>
+						</label>
+						<br />
+						<label for="gender">
+							gender <br />
+							<select name="gender">
+								<option value="Male">Male</option>
+								<option value="Female">Female</option>
+							</select>
+						</label>
+					</div>
+
+					<div class="check-div">
+						<label for="terms"
+							><input type="checkbox" name="terms" required /> agreed to our
+							Terms and condition ?</label
+						>
+					</div>
+					<div class="registerBtn-wrapper">
+						<button type="submit">Register</button>
+					</div>
+
+                    <div class="register-links">
+                        <p>
+                            Already have an account ? click here
+                            <a href="{% url 'account:login' %}">login</a>
+                        </p>
+                    </div>
+				</form>
+				
+			</div>
+		</div>
+		<script src="{% static 'js/auth/script.js' %}"></script>
+	</body>
+</html>

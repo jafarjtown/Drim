@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication page</title>
+    <link rel="stylesheet" href="{% static 'auth/login.css' %}">
+</head>
+<body>
+
+    <div class="wrapper">
+
+        <div class="app-desc">
+            <h2>
+                Indigeneous Citizens of
+                <div class="app-desc-span">
+                    <span style="color: rgb(9, 248, 9);">Ni</span><span>ger</span><span style="color: rgb(9, 248, 9);">ia</span> 
+                </div> 
+            </h2>
+            <div class="app-about">
+                <p>
+                
+                    by Knowing our right, by know our obligations, by knowing our responsiblities to the state <br>
+                    we can develop our only country <b>Nigeria</b>...
+
+                    <br>
+
+                    let's join, unite and explore each other, through sharing of experiance, feelings, thought and understanding a situation we can solve our problems by the will of the Almighty...
+
+
+
+                </p>
+            </div>
+        </div>
+
+        <div class="login-wrapper">
+            <h2>Login Form</h2>
+
+            <form action="#" method="POST">
+                {% csrf_token %}
+                
+                {% if message0 %}
+                    <p>
+                        {{message0}}
+                    </p>
+                    <p>instad create account by click here <a href="{% url 'account:register' %}">register</a> </p>
+                {% endif %}
+
+                {% if message1 %}
+                    <p>
+                        {{message1}}
+                    </p>
+                    <p>Forgotten password ? click here <a href="#">here</a> to recover account</p>
+                {% endif %}
+                    
+                <div class="input-wrapper">
+
+                    <input type="text" name="username" placeholder="Email, Username or phone number" autocomplete="false">
+
+                </div>
+
+                <div class="input-wrapper">
+
+                    <input type="password" name="password" placeholder="Password" autocomplete="false">
+
+                </div>
+                <button>Login</button>
+                <div class="login-redirect-links">
+                    <a href="#">Forgotten Password</a>
+                    <p>Don't have an account ? <a href="{% url 'account:register' %}">register</a></p>
+                </div>
+            </form>
+            
+        </div>
+
+    </div>
+    
+</body>
+</html>

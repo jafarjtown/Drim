@@ -1,0 +1,116 @@
+{% extends 'auth/base.html' %}
+{% load static %}
+
+{% block main %}
+			<div class="form">
+				<h3>Register new user</h3>
+				<form  method="post">
+					{% csrf_token %} {% if error %}
+					<p>{{error}}</p>
+					{% endif %}
+
+					<div class="md-form">
+						<label class="label">Username <span>*</span></label>
+						<input
+							type="text"
+							name="username"
+							required
+							class="form-input"
+						/>
+						
+					</div>
+					<div class="md-form">
+						<label class="label">Email <span>*</span></label>
+						
+						<input
+							type="text"
+							name="email"
+							required
+							class="form-input"
+						/>
+					<small id='eerror'>Invalid Email</small>
+
+						
+					</div>
+					<div class="md-form">
+						<label class="label">Date of birth <span>*</span></label>
+						<input
+							type="Date"
+							name="DOB"
+							required
+							class="form-input"
+						/>
+						
+					</div>
+					<div class="md-form">
+						<label class="label">Gender <span>*</span></label>
+
+						<label for="gender">Male <input
+							type="radio"
+							value="m"
+							name="gender"
+							required
+						/></label>
+						<label for="gender">Female
+							<input
+							type="radio"
+							value="f"
+							name="gender"
+							required
+						/>
+						</label>
+						
+						
+					</div>
+					<div class="md-form">
+						<label class="label">Full Name <span>*</span></label>
+						<input
+							type="text"
+							name="fullname"
+							class="form-input"
+							required
+						/>
+					</div>
+
+					<div class="md-form">
+						<label class="label">Create Password <span>*</span></label>
+						<input
+							type="password"
+							name="password1"
+							class="form-input"
+						/>
+						<small id="p1error"> Not valid</small>
+					</div>
+					<div class="md-form">
+						<label class="label">Confirm password <span>*</span></label>
+						<input
+						type="password"
+						name="password2"
+						class="form-input"
+					/>
+					<small id='p2error'>Password didn't match</small>
+					</div>
+					<div>
+						<label for="terms"
+							><input type="checkbox" name="terms" required /> agreed to our
+							Terms and condition ?</label
+						>
+					</div>
+					<div class="md-form">
+						<button type="submit" class="bg-primary text-light border" id="submit">Register</button>
+					</div>
+
+                    <div class="md-form">
+                        <p>
+                            Already have an account ? click here
+                            <a href="{% url 'account:login' %}">login</a>
+                        </p>
+						<p class="create-page-link">
+                           Create page 
+                            <a href="{% url 'pages:create-page' %}">here</a>
+                        </p>
+                    </div>
+				</form>
+				
+			</div>
+{% endblock main %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+
+{% block main %}
+    
+    {% for act in user.activities.all %}
+        <div>
+            <h3>{{act.activity}}</h3>
+            <p>
+                {{act.description}}
+            </p>
+            <small>
+                {{act.created_at}}
+            </small>
+        </div>
+    {% endfor %}
+        
+{% endblock main %}
+    

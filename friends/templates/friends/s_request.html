@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+    <div class="friends">
+         {% for friend in user.my_followers.all %}
+    
+    <div class="friend" id="{{friend.id}}">
+        <div class="friends_wrapper">
+            <p>
+            {{friend.get_full_name}}
+            </p>
+        </div>
+    </div>
+  
+        
+    {% endfor %}
+</div>
+{% endblock main %}
+
+
+{% block script %}
+    <script>
+        async function Accept(id){
+            const accepted = document.querySelector('.accepted')
+            const request = await fetch(`accept/${id}`)
+            const data = await request.json()
+            if(data.response === 'successfull'){
+                document.getElementById(id).innerHTML= `
+                <div class="friend">
+                    <p>${data.friend}</p>
+                    <div>
+                        you are now friend with ${data.friend}
+                </div>
+                `
+            }
+        }
+    </script>
+{% endblock script %}
+    

@@ -8,3 +8,4 @@ djangorestframework
 django-allauth
 channels
 django-rest-auth
+pillow

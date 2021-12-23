@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     #'accounts.UserAuth',
     'home.apps.HomeConfig',
     'django_extensions',
-    'notes.apps.NotesConfig',
+    #'notes.apps.NotesConfig',
     'school',
     'posts',
     'rest_framework',

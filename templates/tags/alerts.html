@@ -1,0 +1,31 @@
+
+{% if user_pages.count > 0 %}
+
+    <h3>Pages</h3>
+    <ul>
+        {% for page in user_pages %}
+            <li>
+                <a href="{% url 'pages:home-page' page.name page.id %}">{{page.name}}</a>
+            </li>
+        {% endfor %}
+            
+    </ul>
+{% else %}
+<button>Explore Pages</button>
+{% endif %}
+
+
+{% if user_institutions.count > 0 %}
+    <h3>Institutions</h3>
+    <ul>
+      {% for inst in user_institutions %}
+        <li>
+            {{inst.name}}
+        </li>
+    {% endfor %}  
+    </ul>
+    
+        
+{% endif %}
+    
+    

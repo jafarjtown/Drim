@@ -1,0 +1,87 @@
+<nav>
+    <div class="logo">
+        <ul class="ul">
+            <a href="/">
+                <li>
+                    <h3>Logo</h3>
+                </li>
+            </a>
+        </ul>
+    </div>
+    <div class="links">
+        <ul class="ul">
+            <a href="{% url 'home:home' %}">
+                <li>Home</li>
+            </a>
+            <a href="{% url 'institution:institutions' %}">
+                <li>Institutions</li> </a
+            >
+            <a href="{% url 'group:groups' %}">
+                <li>groups</li>
+            </a>
+            <a href="{% url 'friends:friends' %}">
+                <li>friends</li>
+            </a>
+            <a href="{% url 'notifications:notification_page' %}">
+                <li>notifications</li> </a
+            ><a href="{% url 'activity:activities' %}">
+                <li>activities</li>
+            </a>
+            <a href="{% url 'messenger:message' %}">
+                <li>messenger</li>
+            </a>
+        </ul>
+    </div>
+    <div class="links">
+		<ul class="ul">
+			<a href="#"> <li>{{user.username}}</li> </a
+			>                    <a href="{% url 'settings:user_settings' %}"> <li>Account Settings</li> </a
+
+			><a href="{% url 'account:logout' %}">
+				<li>Log out</li>
+			</a>
+		</ul>
+	</div>
+
+    <div class="links-2">
+        <div class="click">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="nav">
+            <div class="links-3">
+                <ul class="ul">
+                    <a href="{% url 'home:home' %}">
+                        <li>Home</li>
+                    </a>
+                    <a href="{% url 'institution:institutions' %}">
+                        <li>Institutions</li> </a
+                    ><a href="{% url 'group:groups' %}">
+                        <li>groups</li>
+                    </a>
+                    <a href="{% url 'friends:friends' %}">
+                        <li>friends</li>
+                    </a>
+                    <a href="{% url 'notifications:notification_page' %}">
+                        <li>notifications</li> </a
+                    ><a href="{% url 'activity:activities' %}">
+                        <li>activities</li>
+                    </a><a href="{% url 'messenger:message' %}">
+                        <li>messenger</li>
+                    </a>
+                </ul>
+            </div>
+            <div class="links-3">
+                <ul class="ul">
+                    <a href="#"> <li>{{user.username}}</li> </a
+                    >
+                    <a href="{% url 'settings:user_settings' %}"> <li>Account Settings</li> </a
+                    ><a href="{% url 'account:logout' %}">
+                        <li>Log out</li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

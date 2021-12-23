@@ -1,0 +1,46 @@
+
+<!-- notifications -->
+
+{% if user_notifications.count > 0 %}
+    <div class="tag_notifications">
+        <h3>Notifications</h3>
+        <ul id="tag_notifications_ul">
+            
+        </ul>
+    </div>  
+{% endif %}
+
+
+{% block script %}
+    <script>
+        
+        const getNotifications = async () => {
+            let token = '{{token}}'
+            const req = await fetch('/api/notification/notifications',{
+                headers: {
+                    'Authorization': `Token ${token}`
+                }
+            });
+            const res = await req.json()
+            let results = res.results
+            const ul = document.querySelector('#tag_notifications_ul')
+            ul.innerHTML = ''
+            results.forEach(notification => {
+                let li = document.createElement('li')
+                li.innerHTML = `
+                    <div class='tag_notification'>
+                        <div>
+                            ${notification.message}
+                        </div>
+                    </div>
+                `
+                ul.appendChild(li)
+            })
+        }
+        getNotifications()
+    </script>
+{% endblock script %}
+    
+    
+
+

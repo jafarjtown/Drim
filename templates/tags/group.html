@@ -1,0 +1,42 @@
+<div class="tag_groups">
+    <h3>Groups</h3>
+    <ul id="tag_groups_ul">
+            
+    </ul>
+</div>
+
+
+{% block script %}
+    <script>
+        const getGroups = async () => {
+            let token = '{{token}}'
+            const req = await fetch('/api/group/groups/',{
+                headers: {
+                    'Authorization': `Token ${token}`
+                }
+            });
+            const res = await req.json()
+            let results = res.results
+            const ul = document.querySelector('#tag_groups_ul')
+            ul.innerHTML = ''
+            results.forEach(group => {
+                let li = document.createElement('li')
+                li.innerHTML = `
+                    <a href='/groups/${group.id}/' class='tag_group'>
+                        <div class='tag_group_avatar'>
+                            
+                        </div>
+                        <div class='tag_group_name'>
+                            <span class='group_name'>${group.name}</span>
+                            <span class='group_desc'>${group.description}</span>
+                            
+                        </div>
+                    </a>
+                `
+                ul.appendChild(li)
+            })
+        }
+        getGroups()
+    </script>
+{% endblock script %}
+    

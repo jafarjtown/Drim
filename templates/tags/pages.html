@@ -1,0 +1,29 @@
+
+<!-- notifications -->
+
+{% if user_pages.count > 0 %}
+    <div class="tag_notifications">
+        <h3>Pages</h3>
+        <ul id="tag_groups_ul">
+            {% for page in user_pages %}
+            <a href="{% url 'pages:home-page' page.name page.id %}" class='tag_group'>
+                <div class='tag_group_avatar'>
+                    
+                </div>
+                <div class='tag_group_name'>
+                    <span class='group_name'>{{page.name}}</span>
+                    <span class='group_desc'>{{page.description}}</span>
+                </div>
+            </a>
+        {% endfor %}
+        </ul>
+    </div>  
+{% endif %}
+
+
+{% block script %}
+{% endblock script %}
+    
+    
+
+

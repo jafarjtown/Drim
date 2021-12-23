@@ -1,0 +1,61 @@
+<div class="nav_new">
+    <div class="left_side">
+        <div class="logo_div">
+            <h1>site name
+            </h1>
+        </div>
+        <form action="{% url 'search:search_field' %}" method="GET">
+            {% csrf_token %}
+            <div class="left_input">
+                <input type="search" name="search_input" value="{{search_field}}">
+            </div>
+            <button>search</button>
+        </form>
+    </div>
+    <div class="right_side">
+        <div class="links_div">
+            <ul>
+                <li>
+                    <a href="{% url 'home:home' %}">
+                        home
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'institution:institutions' %}">
+                        institutions
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'group:groups' %}">
+                        groups
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'friends:friends' %}">
+                        friends
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'notifications:notification_page' %}">
+                        notification
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'account:account' %}">
+                        account
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'settings:user_settings' %}">
+                        settings
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'account:logout' %}">
+                        logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

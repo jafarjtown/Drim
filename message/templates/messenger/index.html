@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/messenger/styles.css' %}">
+{% endblock styles %}
+
+{% block modal_header %}
+    <h3>Start new chat's</h3>
+{% endblock modal_header %}
+
+{% block modal %}
+<div>
+    <ul>
+    {% for user in user.followings.all %}
+        {% if user not in friends %}
+        <li>
+            <a href="{% url 'messenger:start-chat' user.id %}">
+                {{user}}
+            </a>
+        </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+</div>
+{% endblock modal %}
+
+
+{% block left %}
+<div>
+    <ul>
+    {% for user in user.followings.all %}
+        {% if user not in friends %}
+        <li>
+            <a href="{% url 'messenger:start-chat' user.id %}">
+                {{user}}
+            </a>
+        </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+</div>
+{% endblock left %}
+    
+{% block main %}
+<div class="messenger">
+    <div class="messenger_header">
+        <div class="messenger_header_left">
+            <button id="open-modal"><i class="fa fa-plus-square"> Friend</i></button>
+        </div>
+        <div class="messenger_header_right">
+            <button><i class="fa fa-gears"> Settings</i></button>
+        </div>
+    </div>
+    <div class="messenger_messages_box">
+        {% for chat in chats.all %}
+        <a href="{% url 'messenger:chat' chat.get_thread_id %}" class="messenger_message">
+            <div class="messenger_message_header">
+                
+                {% if chat.friend.avatar != '' %}
+                    <img src="{{chat.friend.avatar.url}}" class="messenger_message_avatar" loading='lazy'/>
+                {% else %}
+                <div class="messenger_message_avatar"></div>
+                {% endif %}
+                    
+                <div class="messenger_message_username">
+                    <span>{{chat.friend.get_full_name}}</span>
+                </div>
+                
+                {% if chat.unseen > 0 %}
+                   <div class="messenger_unseen">
+                        {{chat.unseen}}
+                </div> 
+                {% endif %}
+                    
+                
+            </div>
+            
+            <div class="messenger_message_chat">
+                {% if chat.messages.last.sender == user %}
+                <div class="messenger_message_chat_text me2">
+                    <p class="me"> {{chat.messages.last.text}} </p>
+                    <small>{{chat.messages.last.created_at|naturaltime}}</small>
+                </div>
+                {% else %}
+                <div class="messenger_message_chat_text">
+                    <p> {{chat.messages.last.text}} </p>
+                    <small>{{chat.messages.last.created_at|naturaltime}}</small>
+                </div>
+                {% endif %}
+                    
+            </div> 
+        </a>
+        {% endfor %} 
+    </div>
+    
+</div>
+                
+{% endblock main %}
+
+

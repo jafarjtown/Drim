@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+    <ul>
+        <li>
+            <a href="#">Block</a>
+        </li>
+        <li>
+            <a href="#">follow</a>
+        </li>
+        <li>
+            <a href="#">Download meesages</a>
+        </li>
+        <li>
+            <a href="{% url 'messenger:chat-clear' uid %}">Clear messages</a>
+        </li>
+    </ul>
+{% endblock main %}
+    

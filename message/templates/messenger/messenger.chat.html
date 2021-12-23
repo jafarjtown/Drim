@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/messenger/styles.css' %}">
+    <style>
+        .messenger_messages_box{
+            width: 99%;
+            height: 70%;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+            padding: 0 20px;
+        }
+        .messenger_input{
+            width: 50%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid;
+            border-radius: 10px;
+            outline: none;
+            resize: none;
+        }
+        .messenger_message_chat_text{
+            width: 95%;
+        }
+    </style>
+{% endblock styles %}
+
+{% block main %}
+<a href="{% url 'messenger:chat-setting' userchatId %}">settings</a>
+<div class="messenger_messages_box" id="chats-box">
+{% for message in messages.all %}
+            {% if message.sender == user %}
+            <div class="messenger_message_chat_text me2">
+                <p class="me"> {{message.text}} </p>
+                <small>{{message.created_at|naturaltime}}</small>
+            </div>
+            {% else %}
+            <div class="messenger_message_chat_text">
+                <p> {{message.text}} </p>
+                <small>{{message.created_at|naturaltime}}</small>
+            </div>
+            {% endif %}
+{% endfor %}
+</div>
+<div method="post">
+    {% csrf_token %}
+    <textarea name="message" class="messenger_input" id="chat-message-input" cols="30" rows="10"></textarea>
+    <button type="submit" id='chat-message-submit'>send</button>
+</div>
+{% endblock main %}
+
+{% block script %}
+    {{ thread_id|json_script:"thread-id" }}
+    <script>
+        const threadId = JSON.parse(document.getElementById('thread-id').textContent);
+        const username = JSON.parse(document.getElementById('username').textContent);
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/personalchat/'
+            + threadId
+            + '/'
+        );
+        console.log(chatSocket)
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            console.log(data)
+            if(data.join == true && data.user == username) return;
+            let box = document.querySelector('#chats-box')
+            if(data.join == true || data.offline == true) return
+            else{
+               box.innerHTML += `
+            <div class="messenger_message_chat_text ${data.user == username ? 'me2' : ''}">
+                <p class="${data.user == username ? 'me' : ''}"> ${data.message} </p>
+                <small>now</small>
+            </div>
+            ` 
+            }
+            scrollToBottom()
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            e.preventDefault()
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInputDom.value = '';
+        };
+    const Now = () => {
+        let date = new Date()
+        let h = date.getHours()
+        let m = date.getMinutes()
+        return `${h}:${m}`
+    }
+    function scrollToBottom(){
+        let box = document.querySelector('#chats-box')
+        box.scrollTop = box.scrollHeight - box.clientHeight
+    }
+    scrollToBottom()
+    </script>
+{% endblock script %}
+    

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+    
+    {% for notification in user.received_notification.all %}
+        <p>
+            {{notification.message | safe}}
+        </p>
+        <small>
+            {{notification.created_at}}
+        </small>
+    {% endfor %}
+        
+{% endblock main %}
+    

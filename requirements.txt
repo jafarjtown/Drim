@@ -1,0 +1,8 @@
+django
+gunicorn
+django-heroku
+django_extensions
+djangorestframework
+django-allauth
+channels
+django-rest-auth

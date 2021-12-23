@@ -1,0 +1,40 @@
+
+
+{% if message %}
+    <p>{{message}}</p>
+{% endif %}
+    
+
+{% if user.isAuthenticate %}
+    yes
+    {% else %}
+    mo
+{% endif %}
+    
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label for="page-name"> <span>
+            name
+        </span>
+            <input name="name" type="text" id="page-name" placeholder="name : Jtech world">
+        </label>
+    </div>
+    <div>
+        <label for="page-url">
+            <span>
+                website url ( for page)
+            </span>
+            <input name="website_url" type="text" placeholder="website url eg: www.xyz.com " id="page-url">
+        </label>
+    </div>
+    <div>
+        <label for="page-about">
+            <span>About page</span>
+            <textarea name="about" id="page-about" placeholder="about ..."></textarea>
+        </label>
+    </div>
+    <div>
+        <button>Create</button>
+    </div>
+</form>

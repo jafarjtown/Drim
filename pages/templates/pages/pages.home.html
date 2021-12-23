@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load post_filters %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/page/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/posts/styles.css' %}">
+{% endblock styles %}
+    
+
+{% block left %}
+{% if user not in page.admins.all %}
+<p><a href="{% url 'pages:verification-page' page.name page.id %}">become moderator</a> to {{page.name}}</p>
+{% endif %}
+<div class="page_markets_lists">
+    <ul>
+        
+        {% for market in page.markets.all %}
+            <li>
+                <a href="{% url 'market:market-home' market.id %}">{{market.name}}</a>
+                <ul>
+                    
+                    {% for shop in market.shops.all %}
+                        <li>
+                            {{shop.name}}
+                        </li>
+                    {% endfor %}
+                        
+                </ul>
+            </li>
+        {% endfor %}
+            
+    </ul>
+</div>   
+{% endblock left %}
+
+
+{% block modal_header %}
+    <h3>Add new post to ==> {{page.name|upper}}</h3>
+{% endblock modal_header %}
+    
+{% block modal %}
+    <form action="" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <div class="page_form_div">
+            <textarea name="status" id="" cols="30" rows="10"></textarea>
+        </div>
+        <div class="page_form_div">
+            <input type="file" multiple name="medias">
+            <button type="button">Files</button>
+        </div>
+        <div class="page_form_div">
+            <button type="submit">save</button>
+        </div>
+    </form>
+{% endblock modal %}
+    
+{% block main %}
+    <div class="page_header">
+        <div class="page_header_imgs">
+            <div class="page_cover_img"></div>
+            <div class="page_avatar_img"></div>
+        </div>
+        <div class="page_header_bottom">
+            <h3>
+            {{page.name|upper}} 
+            {% if page.verify %}
+            <i class="fa fa-check-circle verify"></i>
+            {% endif %}
+            </h3>
+            <div>
+                {% if user not in page.followers.all and user not in page.admins.all %}
+                <a href="{% url 'pages:follow-page' page.id %}">
+                    <button><i class="fa fa-heart-o"></i> interested</button>
+                </a>  
+                {% endif %}
+                {% if user in page.admins.all %}
+                    <a id="open-modal">
+                        <button><i class="fa fa-plus"></i> post</button>
+                    </a> 
+                {% endif %}
+            </div>
+            
+        </div>
+        
+    </div>
+    <div class="page_nav">
+        <ul>
+            <li><i class="fa fa-leaf"></i> posts</li>
+            <li><a href="/"><i class="fa fa-building-o"></i> market</a></li>
+            <li><i class="fa fa-link"></i> url</li>
+            <li><i class="fa fa-file-audio-o"></i> audios</li>
+            <li><i class="fa fa-file-video-o"></i> videos</li>
+            <li><i class="fa fa-file-picture-o"></i> images</li>
+            <li><i class="fa fa-ellipsis-h"></i> more</li>
+        </ul>
+    </div>
+    <div class="page_nav">
+        <form action="" method="get">
+            <input type="search" name="search">
+            <button><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    <div class="page_post_wrapper">
+        {% for post in page.posts.all %}
+        <div class="page_post">
+            <div class="page_post_header">
+                <div class="page_post_info">
+                    <div class="page_post_avatar"></div>
+                    <div class="page_post_name">
+                        <span class="name">{{page.name}}</span>
+                        <small class="time">{{post.created_at|naturaltime}}</small>
+                    </div>
+                    {% if page.verify %}
+                    <i class="fa fa-check-circle verify"></i>
+                    {% endif %}
+                </div>
+                <div class="page_post_settings">
+                    <i class="fa fa-gears"></i>
+                    <i class="fa fa-ellipsis-h"></i>
+                </div>
+            </div>
+            <div class="page_post_body">
+                <div class="page_post_file">
+                    {{post.files.all|file_type|safe}}
+                </div>
+                <div class="page_post_text">{{post.status|text_format|safe}}</div>
+            </div>
+            <div class="page_post_react">
+                <div class="like_dislike">
+                    <i class="fa fa-thumbs-o-up"></i>
+                    <i class="fa fa-thumbs-o-down"></i>
+                </div>
+                <div class="comment">
+                    <i class="fa fa-comments-o"></i>
+                </div>
+                <div class="share">
+                    <i class="fa fa-share-alt"></i>
+                </div>
+            </div>
+        </div> 
+        {% endfor %}
+            
+    </div>  
+    
+{% endblock main %}
+    
+
+
+{% block script %}
+    
+{% endblock script %}
+    

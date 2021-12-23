@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block left %}
+    
+{% endblock left %}
+    
+{% block main %}
+
+    <form action="{% url 'pages:home-pages' %}" method="post">
+        {% csrf_token %}
+        <label for="code">
+            Enter code
+            <input type="number" name="code">
+            <button>Search</button>
+        </label>
+    </form>
+
+    <form action="{% url 'pages:home-pages-name' %}" method="post">
+        {% csrf_token %}
+        <label for="code">
+            Enter Name
+            <input type="text" name="name">
+            <button>Search</button>
+        </label>
+    </form>
+    {% if pages %}
+        
+        {% for page in pages %}
+        <a href="{% url 'pages:home-page' page.name page.id %}">
+            {{page.name}}
+        </a>
+        {% endfor %}
+            
+    {% endif %}
+        
+{% endblock main %}
+    

@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	<title></title>
+{% endblock title %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{% static 'css/posts/styles.css' %}">
+{% endblock styles %}
+	
+{% block main %}
+<div class="post_Wrapper comments"></div>
+<!-- comments div -->
+<div class="comments_wrapper"></div>
+<div class="comment_form">
+<textarea  name="comment" cols="30" rows="10"></textarea>
+<!-- <input type="file" name="file" /> -->
+<button onclick="Comment()">Send</button>
+</div>
+
+{% endblock main %}
+<br />
+{% block script %}
+<script>
+	async function GetPost() {
+		
+		const data = await fetch("/posts/posts/detail/{{id}}", {
+			headers:{
+				'Authorization': 'Token {{token}}'
+			}
+		});
+		const post = await data.json();
+		let div = document.querySelector(".post_Wrapper");
+		div.innerHTML = `<div class="post">
+			<div class="post_header">
+				<div class="post_header_user">
+					${post.author.avatar ? `<img src='${post.author.avatar}' class='user_avatar' />` : `
+					<div class='user_avatar'>
+						
+					</div>
+					`}
+					<div class='p'>
+					<p>${post.author.first_name} ${post.author.last_name}</p>
+					<small>${getDate(post.created_at)}</small>
+					</div>
+				</div>
+			</div>
+
+			<div class="post_body">
+				<div class="post_text">
+					<p>${post?.status && hashTagText(post.status)}</p>
+					
+					${post.files.length > 0 ? ViewFile(post.files, post.id) : " "}
+				</div>
+			</div>
+			<div class="post_info">
+			<button onclick='likePost("${post.id}")'> ${post.likes.length} likes </button>
+			<a href="posts/comments/${post.id}">
+				${post.comments.length} comments
+			</a>
+			<button onclick="copyLink('posts/comments/${post.id}')">copy link</button>
+			</div>
+		</div>
+	<br />
+	`;
+		let title = await document.querySelector('title')
+		title.innerText = post.status.slice(0,15)
+		let div1 = document.querySelector(".comments_wrapper");
+		div1.innerHTML = "";
+		post.comments.map((comment) => {
+			div1.innerHTML += `
+			<div class='comment_div'>
+				<div class="post_header">
+					<div class="post_header_user">
+						${comment.author.avatar ? `<img src='${comment.author.avatar}' class='user_avatar' />` : `
+						<div class='user_avatar'>
+							
+						</div>
+						`}
+						<div class='p'>
+						<p>${comment.author.first_name} ${comment.author.last_name}</p>
+						<small>${getDate(comment.created_at)}</small>
+						</div>
+					</div>
+				</div>
+				<div class="post_body">
+					<div class="post_text">
+						<p>${comment?.status && hashTagText(comment.status)}</p>
+					</
+			</div>
+		`;
+		});
+	}
+	async function Comment() {
+		let form = new FormData();
+
+		form.append("text", document.querySelector('[name="comment"]').value);
+		//form.append("file", document.querySelector('[name="file"]').files[0]);
+		const data = await fetch("/posts/comments/{{id}}/", {
+			method: "POST",
+			body: form,
+		});
+		const result = await data.json();
+		if (result.response === "success") {
+			document.querySelector('[name="comment"]').value = null
+			GetPost();
+		} else {
+			alert("Error Occured while trying to comment...");
+		}
+	}
+	GetPost();
+	const likePost = async (id) => {
+		//request to like
+		const req = await fetch(`/posts/likes/${id}`)
+		const res = await req.json()
+		GetPost()
+		return true
+	}
+</script>
+{% endblock script %}

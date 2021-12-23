@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+    <div>
+        <h3>Privacy</h3>
+        <ul>
+            <li>
+                <a href="{% url 'settings:user_personal' %}">personal Info</a>
+                
+            </li>
+            <li>
+                <a href="{% url 'settings:user_institution' %}">Institutions</a>
+                
+            </li>
+            <li>
+                relationship with friends
+            </li>
+            <li>
+                <a href="{% url 'settings:user_activities' %}"> activities</a>
+               
+            </li>
+
+        </ul>
+    </div>
+
+    <div>
+        <h3>Report</h3>
+        <ul>
+            <li>miss-used of data</li>
+            <li>report user</li>
+            <li>report problem</li>
+            <li>Terms and condtions</li>
+        </ul>
+    </div>
+
+    <div>
+        <ul>
+            <li>delete account or suspend</li>
+        </ul>
+    </div>
+
+{% endblock main %}
+
+
+    

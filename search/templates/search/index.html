@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load post_filters %}
+{% load humanize %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/posts/styles.css' %}" />
+    
+{% endblock styles %}
+    
+{% block main %}
+
+{% if users_result %}
+    <div class="users_results_div">
+        
+        {% for u in users_result.all %}
+            <div class="user_result" id="{{u.id}}">
+                <div class="top">
+                    <div class="user_avatar">
+
+                    </div>
+                    <div class="user_name">
+                        <span>
+                            {{u.first_name}} {{u.last_name}}
+                        </span>
+                    </div>
+                </div>
+                <div class="bottom">
+                    
+                    {% if u not in user.followings.all %}
+                        <button class="user_follower">
+                            <a href="{% url 'friends:follow' u.id %}">
+                                follow
+                            </a>
+                        </button>
+                    {% else %}
+                    <button class="user_unfollower">
+                        <a href="{% url 'friends:unfollow' u.id %}">
+                            unfollow
+                        </a>
+                    </button>
+                    {% endif %}
+                        
+                </div>
+            </div>
+        {% endfor %}
+            
+    </div>
+{% endif %}
+
+{% if posts_result %}
+    <div class="posts_results_div">
+        <h3>All Post Result</h3>
+        {% for post in posts_result %}
+        {% if post.page.all.0 %}
+        <div class="page_post">
+            <div class="page_post_header">
+                <div class="page_post_info">
+                    <div class="page_post_avatar"></div>
+                    <div class="page_post_name">
+                        <span class="name"><a href="{% url 'pages:home-page' post.page.all.0.name post.page.all.0.id %}">
+                            {{post.page.all.0.name}}
+                        </a></span>
+                        <small class="time">{{post.created_at|naturaltime}}</small>
+                    </div>
+                    {% if post.page.all.0.verify %}
+                <i class="fa fa-check-circle verify"></i>
+                {% endif %}
+                </div>
+                <div class="page_post_settings">
+                    <i class="fa fa-gears"></i>
+                    <i class="fa fa-ellipsis-h"></i>
+                </div>
+                
+            </div>
+            <div class="page_post_body">
+                <div class="page_post_file">
+                    {{post.files.all|file_type|safe}}
+                </div>
+                <div class="page_post_text">{{post.status|text_format|safe}}</div>
+            </div>
+            <div class="page_post_react">
+                <div class="like_dislike">
+                    <i class="fa fa-thumbs-o-up"></i>
+                    <i class="fa fa-thumbs-o-down"></i>
+                </div>
+                <div class="comment">
+                    <i class="fa fa-comments-o"></i>
+                </div>
+                <div class="share">
+                    <i class="fa fa-share-alt"></i>
+                </div>
+            </div>
+        </div>
+            
+        {% else %}
+                <div class="post">
+            <div class="post_header">
+                
+                <div class="post_header_user">
+                    {% if post.author.avatar != '' %}
+                        <img
+                        src="{{post.author.avatar.url}}"
+                        class="user_avatar"
+                    />
+                    {% else %}
+                    <div class="user_avatar"></div>
+                    {% endif %}
+                        
+                    
+                    <div class="p">
+                        <p><a href="{% url 'account:profile' post.author_id %}">{{post.author.get_full_name}}</a></p>
+                        <small>{{post.created_at|naturaltime}}</small>
+                    </div>
+                    
+                    {% if post.group %}
+                        <a
+                        href="{% url 'group:group' post.group.id %}"
+                        class="post_group_link"
+                        >{{post.group.name}}</a
+                    >
+                    {% endif %}
+                    <div class="post_settings">
+                        
+                        {% if post.author == user %}
+                            <a href="/"
+                            ><i class="fa fa-edit"></i
+                        ></a>
+                        <a href="/"><i class="fa fa-dot-circle-o"></i></a>
+                        {% endif %}
+                            
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post_body">
+                <div class="post_img">
+                    {{post.files.all|file_type|safe}}
+                </div>
+                <div class="post_text">{{post.status|text_format|safe}}</div>
+            </div>
+            <div class="post_info">
+                <button onclick='likePost("{{post.id}}")'>
+                    {{post.likes.count}} <i class="fa fa-thumbs-o-up"></i>
+                </button>
+                <a href="posts/comments/{{post.id}}">
+                    {{post.comments.count}} <i class="fa fa-comments-o"></i>
+                </a>
+                <button onclick="copyLink('posts/comments/{{post.id}}')">
+                    <i class="fa fa-share-square-o"></i>
+                </button>
+            </div>
+        </div>		
+        {% endif %}
+    
+        {% endfor %}
+            
+    </div>
+{% endif %}
+    
+{% if files_result %}
+    <div class="files_results_div">
+        {{files_result}}
+    </div>
+{% endif %}
+
+
+{% if result == False %}
+    <div class="no_result">
+        <h3>No match found!
+        </h3>
+        <b>Hint on how to get the best</b>
+        <ul>
+            <li>
+                search field should be well defined ! this is not google
+            </li>
+            <li>
+                search in full details ! for easy perfect match
+            </li>
+        </ul>
+    </div>
+{% endif %}
+    
+
+    
+{% endblock main %}
+    

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+
+{% for activity in user.activities.all %}
+    <p>{{activity}}</p>
+{% endfor %}
+    
+<a href="{% url 'activity:activities_clear' %}" target="blank">Clear</a>
+<button>Download</button>  
+{% endblock main %}
+    

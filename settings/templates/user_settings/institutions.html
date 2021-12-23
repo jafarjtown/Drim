@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+
+{% block main %}
+    
+    {% if user.subscribed.count > 0 %}
+        
+        {% for inst in user.subscribed.all %}
+            <p>
+                {{inst.name}} <button>Unsubscribe</button>
+            </p>
+        {% endfor %}
+    {% else %}
+            <p>you didn't subscribe to any institution, <a href="{% url 'institution:institutions' %}">click</a> to check out</p>
+    {% endif %}
+        
+{% endblock main %}
+    

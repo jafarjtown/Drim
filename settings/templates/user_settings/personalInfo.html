@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+    <h2>Personal Infomation</h2>
+    <form action="{% url 'settings:user_personal' %}" method="post">
+        {% csrf_token %}
+        
+        {% if message %}
+            <p>
+                {{message}}
+            </p>
+        {% endif %}
+            
+            <input type="text" name="first_name" placeholder="first name" value="{{user.first_name}}" required>
+            <input type="text" name="last_name" placeholder="last name" value="{{user.last_name}}" required>
+            <input type="text" name="username" placeholder="username" value="{{user.username}}" required>
+            <input type="text" name="email" placeholder="email" value="{{user.email}}" required>
+            <p>
+                <b>Note: </b> changing anything above, it can't be change later, till in 30 days
+            </p>
+            <input type="password" name="password" placeholder="Enter Password to save" required>
+            <button type="submit">Save</button>
+    </form>
+    <br>
+    <button>
+        <a href="{% url 'settings:user_change_password' %}">Change password</a>
+    </button>
+{% endblock main %}
+    

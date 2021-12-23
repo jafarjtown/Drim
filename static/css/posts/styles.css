@@ -1,0 +1,225 @@
+
+.post, .page_post{
+    width: 90%;
+    box-shadow: 0px 0px 2px 1px #d1d1d1;
+    margin: 10px auto;
+    background-color: white;
+}
+.post_text, .page_post_text{
+    width: 100%;
+    padding-left: 10px;
+    white-space: pre-wrap;
+    word-break: break-all;
+
+}
+.post_text > p{
+    white-space: pre-wrap;
+    width: 100%;
+    word-break: break-all;
+}
+.post_text a{
+    width: 100%;
+    word-break: break-all;
+}
+.one_file{
+    position: relative;
+}
+.video_controls{
+    position: absolute;
+    height: 100%;
+    background-color: #0000006b;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.video_controls progress{
+    position: relative;
+    top: 90%;
+    width: 100%;
+    border: none;
+    background: #0000007d;
+    height: 9px;
+}
+.video_controls  button{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+}
+.one_file > img, .one_file > video, .page_post_file > img{
+    width: 100%;
+}
+.one_file video, .two_file video, .three_file video{
+    max-height: 500px;
+    background: black;
+    border: none;
+    border-radius: 0;
+    outline: none;
+}
+.page_post_name{
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+}
+.page_post_info{
+    display: flex;
+    align-items: center;
+}
+.post_header_user, .page_post_header{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-bottom: .2px solid gray;
+}
+.page_post_header{
+    justify-content: space-between;
+}
+.page_post_settings{
+    margin: 0 5px;
+}
+.p{
+    margin-left: 10px;
+}
+.p > p{
+    padding: 0;
+    margin: 0;
+    text-transform: capitalize;
+    font-family: -webkit-pictograph;
+}
+.post_group_link{
+    padding: 2px;
+    text-decoration: none;
+    background-color: lightgrey;
+    border: .5px solid gray;
+    margin: 0 10px;
+}
+.post_settings{
+    flex: 10;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.post_settings > a{
+    margin: 3px;
+}
+.post_info, .page_post_react{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+.post_info > button, .post_info > a, .page_post_react i{
+    border: none;
+    background-color: transparent;
+    padding: 0 10px;
+    text-decoration: none;
+    color: blue;
+    outline: none;
+    font-size: medium;
+    cursor: pointer;
+
+}
+.user_avatar, .page_post_avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: transparent;
+    object-fit: cover;
+    border: 1px solid transparent;
+    outline: 2px solid;
+    margin: 2px;
+}
+.comments_wrapper{
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+}
+.comment_div{
+    background-color: rgb(233, 233, 233);
+    border-radius: 10px;
+    margin: 5px 0;
+}
+.comments .post_info a{
+    visibility: hidden;
+}
+.comment_div .post_text{
+    padding-left: 10px;
+}
+.two_file{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    max-height: 300px;
+    justify-content: space-evenly;
+}
+.two_file > video,.two_file > img,.three_file > img, .three_file > video,.more_file > img, .more_file > video{
+    max-height: 300px;
+    width: 50%;
+    object-fit: cover;
+}
+.three_file, .more_file{
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+.three_file_2{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.three_file_2 > img, .three_file_2 > video{
+    height: 50%;
+    width: 100%;
+}
+.more_file_count{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 100px;
+    height: 100px;
+    border-radius: 5%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-weight: 700;
+    font-size: xx-large;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.comment_form > textarea{
+    width: 100%;
+    height: 100px;
+    resize: none;
+    padding: 10px;
+    border: 2px solid;
+}
+.comment_form > button{
+    width: fit-content;
+    padding: 5px 10px;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: var(--blue);
+    float: right;
+    margin-right: 10px;
+
+}
+
+@media screen and (max-width: 425px) {
+    .post, .page_post{
+        width: 95%;
+        margin: 5px auto;
+    }
+}

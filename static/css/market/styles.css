@@ -1,0 +1,136 @@
+.market_header, .market_nav{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    background-color: white;
+    box-shadow: 0px 0px 2px 1px #d1d1d1;
+}
+.market_header_logo{
+    width: 50px;
+    height: 50px;
+    border: 1px solid;
+}
+.market_header_right{
+    flex: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.market_name{
+    font-size: x-large;
+    margin: 0 2px;
+}
+.market_settings > ul{
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+.market_settings > ul > li{
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+}
+.market_nav > ul{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    width: 80%;
+    overflow-x: scroll;
+    list-style: none;
+}
+.market_nav a{
+    text-decoration: none;
+    color: black;
+    text-transform: capitalize;
+    padding: 8px;
+}
+.market_nav a:hover{
+    background-color: lightgray;
+    height: 100%;
+}
+.market_items{
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+.market_items_wr{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.market_item{
+    width: 150px;
+    height: fit-content;
+    background-color: white;
+    box-shadow: 0px 0px 2px 1px #d1d1d1;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+.market_item_pic{
+    width: 95%;
+    height: 100px;
+    background-color: red;
+    margin: auto;
+}
+.market_item_det{
+    display: flex;
+    flex-direction: column;
+}
+.market_item_det b{
+    text-transform: capitalize;
+    letter-spacing: .5px;
+}
+.market_item_det small{
+    color: #a8a2a2;
+}
+.market_item_pr{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.item_wr{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.item{
+    width: 250px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 0px 0px 2px 1px #d1d1d1;
+    padding: 5px;
+}
+.item .market_item_pic{
+    height: 200px;
+    margin: 0;
+    width: 100%;
+}
+.item_m{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.item_m a{
+    padding: 5px;
+    border: none;
+    color: white;
+    margin: 5px 0;
+    cursor: pointer;
+    font-size: x-large;
+}
+.item_m a:first-child{
+    background: blue;
+
+}
+.item_m a:last-child{
+    background: green;
+
+}

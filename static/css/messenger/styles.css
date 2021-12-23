@@ -1,0 +1,112 @@
+.messenger{
+    width: 100%;
+    height: 100%;
+}
+.messenger_header{
+    width: 100%;
+    height: 7%;
+    padding: 3px;
+    background-color: white;
+    display: flex;
+    box-shadow: 0px 0px 2px 1px #d1d1d1;
+
+    
+    
+}
+.messenger_header > div{
+    width: 50%;
+}
+.messenger_header_left{
+    display: flex;
+    justify-content: flex-start;
+}
+.messenger_header_right{
+    display: flex;
+    justify-content: flex-end;
+}
+.messenger_header > div > button{
+    padding: 5px;
+    border: none;
+    background-color: blue;
+    color: white;
+    font-size: medium;
+}
+.messenger_messages_box{
+    height: 93%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.messenger_message{
+    width: 80%;
+    background-color: white;
+    padding: 10px;
+    margin: 5px 0;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0px 0px 2px 1px #d1d1d1;
+
+}
+.messenger_message_header{
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    border-bottom: 1px solid;
+    position: relative;
+}
+.messenger_message_avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    outline: 2px solid;
+    object-fit: cover;
+
+}
+.messenger_message_username{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    margin: 0 5px;
+}
+.messenger_message_chat{
+    display: flex;
+    width: 99%;
+    margin: 5px auto;
+}
+.messenger_message_chat_text{
+    margin: 0 2px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.messenger_message_chat_text > p{
+    background-color: rgb(18, 89, 241);
+    border-radius: 10px;
+    padding: 5px;
+    max-width: 250px;
+    width: fit-content;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+.me{
+    justify-self: flex-end;
+    background-color: rgb(187, 184, 184) !important;
+}
+.me2{
+    align-items: flex-end;
+}
+.messenger_unseen{
+    position: absolute;
+    border-radius: 10px;
+    height: fit-content;
+    width: fit-content;
+    padding: 3px;
+    background-color: red;
+    color: white;
+    font-size: medium;
+    font-weight: 600;
+    top: -6px;
+}

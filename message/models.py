@@ -1,5 +1,6 @@
 from django.db import models
 from helpers.models import ModelHelper
+import uuid
 # Create your models here.
 
 class UserChatBox(ModelHelper):
@@ -29,6 +30,7 @@ class ChatBox(ModelHelper):
             return self.thread.all()[0].id
 
 class Message(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid.uuid4,unique=True)
     sender = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name='messages_sent')
     receiver = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name='messages_received')
     text = models.TextField()

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+	
+{% block main %}
+
+{% if group.creator == user or user in group.admins.all %}
+	<a href="{% url 'group:group-setting' group.id %}">Group settings</a>
+{% endif %}
+	
+<ol>
+	
+	{% for rule in group.rules.all %}
+		<li>
+			<h3>
+				{{rule.rule}}
+			</h3>
+			Eg.
+			<ol type="a">
+				{% for word in rule.forbiden_words.all %}
+				<li>
+					{{word.word}}
+				</li>
+			{% endfor %}
+			</ol>
+		</li>
+	{% endfor %}
+		
+</ol>
+
+{% if user in group.members.all %}
+<a h href="{% url 'groupchat:group-chat' group.name %}">group chat</a>
+<p>
+	Pending posts {{group.w_posts.count}}
+</p>
+<div class="none" id="create_new_post_div">
+	<h2>Create new Post</h2>
+	<textarea name="post" cols="30" rows="10"></textarea>
+	<button type="button" id="create_new_post">post</button>
+</div>
+{% else %}
+Join group to post
+{% endif %}
+	
+
+
+{% if userIn or private == False %}		
+{% for post in group.group_post.all %}
+	<p>{{post.status}}</p>
+{% endfor %}
+{% else %}
+
+<p>this is a private group</p>
+
+{% endif %}
+
+{% endblock main %}
+
+
+{% block script %}
+	<script>
+		const create_new_post = document.querySelector("#create_new_post");
+
+async function CreatePost() {
+	let text = document.querySelector('[name="post"]').value;;
+	
+	const formData = new FormData();
+	const username = '{{user}}'
+	formData.append("text", text);
+	formData.append("username", username);
+	const data = {
+		text,
+		username,
+	};
+	await fetch("new-posts", {
+		method: "POST",
+		body: JSON.stringify(data),
+	});
+}
+
+create_new_post.addEventListener("click", CreatePost);
+
+	</script>
+{% endblock script %}
+	
+    

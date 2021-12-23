@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+    {% if user == group.creator or user in group.admins.all %}
+    <ul>
+        <li>
+            <a href="#">change group cover</a>
+        </li>
+        <li>
+            <a href="{% url 'group:group-members' group.id %}">manage members</a>
+        </li>
+        <li>
+            <a href="#">manage materials</a>
+        </li>
+        <li>
+            <a href="#">manage admins</a>
+        </li>
+        <li>
+            <a href="{% url 'group:group-private' group.id %}">Change group privacy-{{group.private}}</a>
+        </li>
+    </ul>
+{% else %}
+    sorry, you do not have permission to this page
+{% endif %}
+{% endblock main %}
+    
+
+    

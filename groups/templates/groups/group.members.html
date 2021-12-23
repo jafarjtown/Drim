@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <ul>
+        
+        {% for member in members.all %}
+            <li>
+                {{member.username}} 
+
+                {% if member == creator %}
+                    Creator
+                {% elif member in admins %}
+                    Admin <a href="{% url 'group:group-make-admin' groupId member.id %}">dismiss as admin</a>
+                {% else %}
+                    regular
+                    <a href="{% url 'group:group-make-admin' groupId member.id %}">makes admin</a>
+                {% endif %}
+                    
+            </li>
+        {% endfor %}            
+    </ul>
+{% endblock main %}
+    

@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+        <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .message_box{
+            height: 400px;
+            overflow-y: scroll;
+            display: flex;
+            flex-direction: column;
+        }
+        .message{
+            background-color: rgb(238, 238, 238);
+            padding: 5px;
+            width: fit-content;
+            max-width: 300px;
+            border-radius: 10px;
+            margin: 10px;
+        }
+        .message_user_avatar{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: green;
+            margin: 2px;
+        }
+        .message_username{
+            padding: 2px;
+            display: flex;
+            flex-direction: column;
+        }
+        .message_header{
+            display: flex;
+            flex-direction: row;
+            color: gray;
+        }
+        .message_data{
+            display: flex;
+            flex-direction: column;
+            padding-left: 30px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .me{
+            align-self: flex-end;
+            background-color: bisque;
+        }
+        .me .message_data{
+            padding: 2px;
+        }
+        .alert{
+            padding: 10px;
+            width: 60%;
+            align-self: center;
+            text-align: center;
+            text-transform: capitalize;
+        }
+        .alert .message_data{
+            padding: 0;
+        }
+    </style>
+
+{% endblock styles %}
+    
+{% block main %}
+    <div class="message_box">
+        <div class="message">
+            <div class="message_header">
+                <div class="message_user_avatar"></div>
+                <div class="message_username">
+                    <span class="username">Admin</span>
+                    <span class="time">//....//</span>
+                </div>
+            </div>
+            <div class="message_data">
+                <p class="text">
+                    <b>Note!</b> Messages are not saved here
+                </p>
+            </div>
+        </div>
+    </div>
+    <input id="chat-message-input" type="text" size="100"><br>
+    <input id="chat-message-submit" type="button" value="Send">
+
+{% endblock main %}
+    
+
+
+{% block script %}
+    {{ room_name|json_script:"room-name" }}
+    <script>
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const username = JSON.parse(document.getElementById('username').textContent);
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/groupchat/'
+            + roomName
+            + '/'
+        );
+        console.log(chatSocket)
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            if(data.join == true && data.user == username) return;
+            let box = document.querySelector('.message_box')
+            if(data.join == true || data.offline == true){box.innerHTML += `
+                <div class="message alert">
+                    <div class="message_data">
+                        <p class="text">
+                            ${data.message}
+                        </p>
+                    </div>
+                </div>
+                `
+            }else{
+               box.innerHTML += `
+            <div class="message ${data.user == username ? 'me' : ''}">
+                ${data.user == username ? `` : `<div class="message_header">
+                        <div class="message_user_avatar"></div>
+                        <div class="message_username">
+                            <span class="username">${data.user}</span>
+                            <span class="time">${Now()}</span>
+                        </div>
+                    </div>`
+                }
+                
+                <div class="message_data">
+                    <p class="text">
+                        ${data.message}
+                    </p>
+                </div>
+            </div>
+            ` 
+            }
+            scrollToBottom()
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInputDom.value = '';
+        };
+    const Now = () => {
+        let date = new Date()
+        let h = date.getHours()
+        let m = date.getMinutes()
+        return `${h}:${m}`
+    }
+    const scrollToBottom = () => {
+        let box = document.querySelector('.message_box')
+        box.scrollTop = box.scrollHeight - box.clientHeight
+    }
+    scrollToBottom()
+    </script>
+{% endblock script %}

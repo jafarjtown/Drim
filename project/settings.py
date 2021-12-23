@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.humanize',
     'accounts.apps.AccountConfig',
-    'accounts.UserAuth',
+    #'accounts.UserAuth',
     'home.apps.HomeConfig',
     'django_extensions',
     'notes.apps.NotesConfig',

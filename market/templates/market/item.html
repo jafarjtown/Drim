@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load market_tags %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/market/styles.css' %}">
+{% endblock styles %}
+    
+
+{% block right %}
+    
+{% endblock right %}
+    
+{% block main %}
+{% get_amount_in_cart item.id user.cart %}
+    <div class="item_wr">
+
+        <div class="item">
+                <div class="market_item_pic"></div>
+                <div class="market_item_det">
+                    <b>{{item.name}}</b>
+                    <small>{{item.shop.all.0.name}}</small>
+                    <div class="market_item_pr">
+                        <span>{{item.get_price}}</span>
+                    </div>
+                </div>
+        </div>
+        <div class="item_m">
+            <a href="{% url 'market:add' marketId item.id %}">Purchase</a>
+            <a>Add to cart</a>
+        </div>
+    </div>
+{% endblock main %}
+    
+{% block left %}
+    
+{% endblock left %}
+    

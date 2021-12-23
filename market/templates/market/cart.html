@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/market/styles.css' %}">
+{% endblock styles %}
+    
+
+{% block main %}
+<div class="market_items">
+    <div class="market_items_wr">
+    {% for item in items %}
+        <div class="market_item">
+            <div class="market_item_pic"></div>
+            <div class="market_item_det">
+                <b>{{item.item.name}}</b>
+                <small>{{item.amount}}</small>
+                <div class="market_item_pr">
+                    <span>{{item.price}}</span>
+                </div>
+            </div>
+            <button onclick="alert('hello')">Pay now</button>
+        </div>
+    {% endfor %}
+    </div>    
+</div>
+{% endblock main %}
+    

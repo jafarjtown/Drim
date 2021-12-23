@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/market/styles.css' %}">
+{% endblock styles %}
+
+
+{% block modal_header %}
+    <h3>Add Items to market</h3>
+{% endblock modal_header %}
+
+{% block modal %}
+    <form method="post">
+        {% csrf_token %}
+        <div id="form_div_wr">
+            <div class="form_div">
+                <label for="file">
+                    <input type="file" name="file" id="">
+                </label>
+            </div>
+            <div class="form_div">
+                <label for="name">
+                    <input type="type" name="name" id="">
+                </label>
+            </div>
+            <div class="form_div">
+                <label for="price">
+                    <input type="number" name="price" id="">
+                </label>
+            </div>
+            <div class="form_div">
+                <label for="shop">
+                    <select name="shop" id="">
+                        
+                        {% for shop in market.shops.all %}
+                            <option value="{{shop}}">{{shop}}</option>
+                        {% endfor %}
+                            
+                    </select>
+                </label>
+            </div>
+        </div>
+        <button type="submit">save</button>
+    </form>
+{% endblock modal %}
+    
+    
+
+{% block main %}
+    <div class="market_header">
+        <div class="market_header_logo">
+            <div class="logo"></div>
+        </div>
+        <div class="market_header_right">
+            <div class="market_name">
+                {{market.name}}
+            </div>
+            <div class="market_settings">
+                <ul>
+                    <li>
+                        <button id="open-modal" class="fa fa-plus-square-o"> Add Item</button>
+                    </li>
+                    <li>
+                        <i class="fa fa-gears"> settings</i>
+                    </li>
+                    <li>
+                        <i class="fa fa-plus-square-o"> shop</i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="market_nav">
+        <ul>
+            <li>
+                <a href="?">
+                    all
+                </a>
+            </li>
+            {% for shop in shops %}
+            <li>
+                <a href="?shop={{shop.name}}">
+                    {{shop.name}}
+                </a>
+            </li>
+               
+            {% endfor %}
+                
+        </ul>
+    </div>
+    <div class="market_items">
+        <div class="market_items_wr">
+        {% for item in items %}
+            <a href="{% url 'market:item' market.id item.id %}" class="market_item">
+                <div class="market_item_pic"></div>
+                <div class="market_item_det">
+                    <b>{{item.name}}</b>
+                    <small>{{item.shop.all.0.name}}</small>
+                    <div class="market_item_pr">
+                        <span>{{item.get_price}}</span>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+        </div>    
+    </div>
+{% endblock main %}
+    

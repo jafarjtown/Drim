@@ -1,0 +1,22 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+{{institution.name}}
+{% endblock title %}
+	
+{% block main %}
+<div>
+	<h3>{{programme.name}}</h3>
+	<p>{{programme.description}}</p>
+	<fieldset>
+		<legend>materials</legend>
+
+		{% for material in programme.materials.all %}
+		<div>
+			{{material.name}}
+			<button>Download</button>
+		</div>
+		{% endfor %}
+	</fieldset>
+</div>
+{% endblock main %}

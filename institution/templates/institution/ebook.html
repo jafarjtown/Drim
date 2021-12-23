@@ -1,0 +1,22 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+{{institution.name}} | ebook | {{file.name}}
+{% endblock title %}
+	
+{% block main %}
+<div>
+	<small>
+		shared by {{institution.name}} 
+		
+		{% if user not in institution.subscribers.all %}
+			<a href="{% url 'institution:subscribe' institution.id %}">subscribe</a>
+		{% else %}
+		 <a href="{% url 'institution:institution' institution.id %}">visit page</a>
+		{% endif %}
+			
+		
+	</small>
+	<h3>{{file.name}}</h3>
+</div>
+{% endblock main %}

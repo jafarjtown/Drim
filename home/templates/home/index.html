@@ -1,0 +1,107 @@
+{% extends 'base.html' %} {% load static %}  {% block title %} Home {% endblock title %} {% block styles %}
+<link rel="stylesheet" href="{% static 'css/home/styles.css' %}" />
+<link rel="stylesheet" href="{% static 'css/posts/styles.css' %}" />
+
+{% endblock styles %} {% block main %}
+<!-- <div class="w-100 d-flex justify-content-center">
+	<button id="open_create_post_div" class="btn w-50 btn-outline-primary small mt-1 mb-1">new post</button>
+</div> -->
+
+<div class="create-new-post-wrapper" id="create_new_post_div">
+	<div class="create-new-post-top">
+		<div class="create-new-post-top-user">
+			<img
+				src=" 
+			{% if user.avatar != '' %}
+				{{user.avatar.url}}
+			{% endif %}
+				 "
+				class="create-new-post-top-avatar"
+			/>
+			<span class="create-new-post-top-usernames">
+				<p>{{user}}</p>
+				<small>{{user.email}}</small>
+			</span>
+		</div>
+
+		<div class="create-new-post-top-links">
+			<!-- <li class="nav-item"> -->
+			<a href="{% url 'pages:home-pages' %}" class="nav-link text-light">
+				<i class="fa fa-globe"></i>
+				<span>Pages {{user.pages.count}}</span></a
+			><br />
+			<a
+				href="{% url 'notifications:notification_page' %}"
+				class="nav-link text-light"
+			>
+				<i class="fa fa-briefcase"></i> <span>Notifications</span></a
+			>
+			<!-- </li> -->
+		</div>
+	</div>
+	<form enctype="multipart/form-data" method="POST" class="create-new-post-bottom">
+		{% csrf_token %}
+		<input
+			type="file"
+			name="medias"
+			id="photo"
+			class="form-control-file"
+			hidden
+			multiple
+		/>
+		<div class="create-new-post-bottom-buttons">
+			<button type="button" id="photo-click">Photo</button>
+			<button type="button">share</button>
+		</div>
+		<textarea class="status" name="status" placeholder="write here..." ></textarea>			
+		<div class="create-new-post-bottom-buttons">
+			<button type="submit" id="create_new_post">post</button>
+		</div>
+	</form>
+</div>
+<div id="posts_wrapper">
+	{% for message in messages %}
+		<p>{{message}}</p>
+	{% endfor %}
+		
+	{% for post in obj_page %}
+
+	{% include 'post/index.html' %}
+
+	{% endfor %}
+
+</div>
+<div class="paginator">
+		<span class="step_links">
+			
+			{% if obj_page.has_previous %}
+				<a href="?page=1">first</a>
+				<a href="?page={{obj_page.previous_page_number}}">&laquo; previous</a>
+			{% endif %}
+
+			<span class="current">
+				Page {{obj_page.number}} of {{obj_page.paginator.num_pages}}
+			</span>
+
+			{% if obj_page.has_next %}
+				<a href="?page={{obj_page.next_page_number}}">next &raquo;</a>
+				<a href="?page={{obj_page.paginator.num_pages}}">last</a>
+			{% endif %}
+				
+		</span>
+</div>
+<div class="loading_post" id="loader"></div>
+{% endblock main %}
+{% block script %}
+
+<script>
+	var token = "{{token}}";
+	var user = "{{user}}";
+</script>
+{% if status %}
+<script>
+	cl('status')[0].innerText = '{{status}}'
+</script>
+{% endif %}
+<script src="{% static 'js/home/script.js' %}"></script>
+{% endblock script %}

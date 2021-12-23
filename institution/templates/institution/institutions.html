@@ -1,0 +1,45 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+	Institutions
+{% endblock title %}
+	
+{% block main %}
+<div>
+	<div class="institutions">
+		<h2>institutions that you Subscribed</h2>
+
+		{% for inst in user.subscribed.all %}
+		<div>
+			<div>
+				<a href="{% url 'institution:institution' inst.id%}">{{inst.name}}</a>
+				<p>{{inst.subscribers.count}}</p>
+			</div>
+			<div>
+				<a href="{% url 'institution:unsubscribe' inst.id %}">unsubscribe</a>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	<div class="institutions">
+		<h2>List of All institutions</h2>
+		{% for inst in institutions.all %}
+		<div>
+			<div>
+				<a href="{% url 'institution:institution' inst.id%}">{{inst.name}}</a>
+
+				<p>{{inst.subscribers.count}}</p>
+			</div>
+			<div>
+				{% if user in inst.subscribers.all %}
+				<a href="{% url 'institution:unsubscribe' inst.id %}">unsubscribe</a>
+				{% else %}
+				<a href="{% url 'institution:subscribe' inst.id %}">subscribe</a>
+
+				{% endif %}
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock main %}

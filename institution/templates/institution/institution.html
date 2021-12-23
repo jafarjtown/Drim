@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %} {{institution.name}} {% endblock title %} 
+{% block main %}
+<div>
+	{% if user not in institution.subscribers.all %}
+	<a href="{% url 'institution:subscribe' institution.id %}">subscribe</a>
+	{% endif %}
+
+	<div>
+		<p>{{institution.name}}</p>
+		<p>{{institution.subscribers.count}}</p>
+	</div>
+	<div>
+		<h2>Event's</h2>
+
+		{% for event in institution.events.all %}
+		<p>{{event.name}}</p>
+		<p>{{event.venue}}</p>
+		<p>from {{event.from_time}}</p>
+		<p>to {{event.to_time}}</p>
+		{% endfor %}
+		<br />
+		{{time}}
+	</div>
+	<a href="{% url 'institution:programmes' institution.id %}">programmes</a>
+</div>
+{% endblock main %} {% block script %} {% endblock script %}

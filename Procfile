@@ -1,1 +1,2 @@
-web: gunicorn dream.wsgi
+release: python3 manage.py migrate
+web: gunicorn project.wsgi

@@ -8,13 +8,12 @@ class PageAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'created_at',
-        'updated_at',
         'name',
         'website_url',
         'about',
         'verification_code',
     )
-    list_filter = ('created_at', 'updated_at')
+    list_filter = ('created_at', )
     raw_id_fields = ('followers', 'posts', 'admins')
     search_fields = ('name',)
     date_hierarchy = 'created_at'

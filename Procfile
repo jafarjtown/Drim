@@ -1,3 +1,1 @@
-release: python3 manage.py migrate
-
-web: gunicorn project.wsgi
+web: daphne project.asgi:application

@@ -1,1 +1,2 @@
-web: daphne project.asgi:application
+web: daphne project.asgi:
+worker: python manage.py runworker

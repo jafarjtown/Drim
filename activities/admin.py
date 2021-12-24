@@ -8,9 +8,8 @@ class ActivityAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'created_at',
-        'updated_at',
         'activity',
         'description',
     )
-    list_filter = ('created_at', 'updated_at')
+    list_filter = ('created_at',)
     date_hierarchy = 'created_at'

@@ -2,7 +2,7 @@ from django.db import models
 from helpers.models import ModelHelper
 # Create your models here.
 
-class UserChatBox(models.Model):
+class UserChatBox(ModelHelper):
     user = models.OneToOneField("accounts.User", on_delete=models.CASCADE, related_name='user_chat')
     chats = models.ManyToManyField("ChatBox", blank=True)
 
@@ -13,7 +13,7 @@ class UserChatBox(models.Model):
             n += chat.unseen_messages.count()
         return n
 
-class ChatBox(models.Model):
+class ChatBox(ModelHelper):
     friend = models.ForeignKey("accounts.User",on_delete=models.CASCADE)
     messages = models.ManyToManyField("Message")
     unseen_messages = models.ManyToManyField('Message', related_name='unseen_messages')

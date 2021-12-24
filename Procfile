@@ -1,2 +1,1 @@
-web: daphne project.asgi:
-worker: python manage.py runworker
+web: gunicorn project.wsgi

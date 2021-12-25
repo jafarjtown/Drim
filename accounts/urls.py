@@ -11,6 +11,7 @@ router.register('users', UserViewSet)
 app_name = 'account'
 urlpatterns = [
     path('', views.Account, name='account'),
+    path('<slug:id>/profile', views.ViewAccount, name='profile'),
     path('avatar/', views.AddAvatar, name='add-avatar'),
     path('avatar/save', views.saveAvatar, name='save-avatar'),
     path('auth/', AuthViews.Login, name='login'),

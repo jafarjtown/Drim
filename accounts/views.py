@@ -17,3 +17,6 @@ def saveAvatar(request):
         user.avatar = file
         user.save()
     return redirect('home:home')
+
+def ViewAccount(request, id):
+    return render(request, 'account/index.html')

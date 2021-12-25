@@ -2,63 +2,44 @@
 <link rel="stylesheet" href="{% static 'css/home/styles.css' %}" />
 <link rel="stylesheet" href="{% static 'css/posts/styles.css' %}" />
 
-{% endblock styles %} {% block main %}
-<!-- <div class="w-100 d-flex justify-content-center">
-	<button id="open_create_post_div" class="btn w-50 btn-outline-primary small mt-1 mb-1">new post</button>
-</div> -->
+{% endblock styles %}
 
-<div class="create-new-post-wrapper" id="create_new_post_div">
-	<div class="create-new-post-top">
-		<div class="create-new-post-top-user">
-			<img
-				src=" 
-			{% if user.avatar != '' %}
-				{{user.avatar.url}}
-			{% endif %}
-				 "
-				class="create-new-post-top-avatar"
-			/>
-			<span class="create-new-post-top-usernames">
-				<p>{{user}}</p>
-				<small>{{user.email}}</small>
-			</span>
-		</div>
+{% block nav %}
+	<li class="nav-item">
+		<a id="open-modal"><i class="fa fa-plus-square-o"></i></a>
+	</li>
+{% endblock nav %}
 
-		<div class="create-new-post-top-links">
-			<!-- <li class="nav-item"> -->
-			<a href="{% url 'pages:home-pages' %}" class="nav-link text-light">
-				<i class="fa fa-globe"></i>
-				<span>Pages {{user.pages.count}}</span></a
-			><br />
-			<a
-				href="{% url 'notifications:notification_page' %}"
-				class="nav-link text-light"
-			>
-				<i class="fa fa-briefcase"></i> <span>Notifications</span></a
-			>
-			<!-- </li> -->
-		</div>
+
+{% block modal_header %}
+	<h3>Create new post</h3>
+{% endblock modal_header %}
+
+{% block modal %}
+<form enctype="multipart/form-data" method="POST" class="new-post-form">
+	{% csrf_token %}
+	<input
+		type="file"
+		name="medias"
+		id="photo"
+		class="form-control-file"
+		hidden
+		multiple
+	/>
+	<textarea class="status" name="status" placeholder="write here..." ></textarea>	
+	<div class="new-post-div-buttons">
+		<button type="button" id="photo-click">Photo </button>
+		<button type="button">share</button>
+		<button type="submit" id="create_new_post">post</button>
 	</div>
-	<form enctype="multipart/form-data" method="POST" class="create-new-post-bottom">
-		{% csrf_token %}
-		<input
-			type="file"
-			name="medias"
-			id="photo"
-			class="form-control-file"
-			hidden
-			multiple
-		/>
-		<div class="create-new-post-bottom-buttons">
-			<button type="button" id="photo-click">Photo</button>
-			<button type="button">share</button>
-		</div>
-		<textarea class="status" name="status" placeholder="write here..." ></textarea>			
-		<div class="create-new-post-bottom-buttons">
-			<button type="submit" id="create_new_post">post</button>
-		</div>
-	</form>
-</div>
+	<p>
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam corporis amet repellat expedita. Pariatur, impedit? Quibusdam eos ad laborum ullam quam, explicabo ducimus necessitatibus dolore nulla aliquam quia nemo atque.
+		Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse exercitationem odio quaerat, ducimus nam ut dolorum similique nisi optio veniam.
+	</p>
+</form>
+{% endblock modal %}
+	
+{% block main %}
 <div id="posts_wrapper">
 	{% for message in messages %}
 		<p>{{message}}</p>

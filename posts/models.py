@@ -23,3 +23,9 @@ class Comment(ModelHelper):
     author = models.ForeignKey(
         'accounts.User', on_delete=models.SET_NULL, null=True)
     status = models.TextField()
+
+class SavedPost(ModelHelper):
+    user = models.OneToOneField('accounts.User', on_delete=models.CASCADE, related_name='saved_posts')
+    posts = models.ManyToManyField('SavePost', blank=True)
+class SavePost(ModelHelper):
+    post = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True)

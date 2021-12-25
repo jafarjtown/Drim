@@ -71,10 +71,13 @@
             <div class="post_settings">
                 
                 {% if post.author == user %}
-                    <a href="/"
-                    ><i class="fa fa-edit"></i
-                ></a>
-                <a href="/"><i class="fa fa-ellipsis-h"></i></a>
+                    <a href="{% url 'posts:edit' post.id %}">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <a href="{% url 'posts:save' post.id %}">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </a>
+
                 {% endif %}
                     
             </div>
@@ -85,7 +88,8 @@
         <div class="post_img">
             {{post.files.all|file_type|safe}}
         </div>
-        <div class="post_text">{{post.status|text_format|safe}}</div>
+        <div class="post_text {% if post.status|length > 500 %}m500{% endif %}">{{post.status|text_format|safe}}</div>
+    {% if post.status|length > 500 %}<button class="seemore">see more</button>{% endif %}
     </div>
     <div class="post_info">
         <button onclick='likePost("{{post.id}}")'>

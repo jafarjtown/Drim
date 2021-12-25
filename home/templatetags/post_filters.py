@@ -97,6 +97,41 @@ def file_type(value):
                     result += f'<button onclick="saveFile({v.file.url},{v.file.url},'')">Download file</button>v.file.url'
         result += '</div>'
     return result
+
+def file_type_e(value):
+    result = ''
+    for v in value:
+        result += f'''
+    <div class="one_file">
+        <div class="post_edit_file_header">
+            <span class="fa fa-trash">Delete<input type="checkbox" value={v.id} name="fileIds"></span>
+        </div>
+    '''
+        if v.file.url != '':
+            ty = v.file.url.split('.')
+            t = ty[-1].lower()
+            musics = ['mp3']
+            videos = ['mp4']
+            pictures = ['png', 'jpg', 'jpeg']
+            if t in musics:
+                result += f'<audio src="{v.file.url}" /></audio>'
+            elif t in videos:
+                result += f'''
+                <video id='video-{v.file.url}' controlsList="nofullscreen nodownload noremoteplayback noplay" preload="metadata" max-height="200" class="post_video"/>
+                    <source src="{v.file.url}" />
+                </video>
+                <div class='video_controls'>
+                    <button onclick='PlayVideo(this,"video-{v.file.url}")' class='fa fa-3x fa-play'></button>
+                    
+                </div>
+                '''
+            elif t in pictures:
+                result += f'<img src="{v.file.url}" loading="lazy"/></img>'
+            else:
+                print(v.file)
+                result += f'<button onclick="saveFile({v.file.url},{v.file.url},'')">Download file</button>v.file.url'
+    result += '</div>'
+    return result
 import re
 
 def word(value):
@@ -130,4 +165,5 @@ def text_format(text):
     return text
 
 register.filter('file_type', file_type)
+register.filter('file_type_e', file_type_e)
 register.filter('text_format', text_format)

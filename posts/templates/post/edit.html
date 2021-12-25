@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load post_filters %}
+
+{% block main %}
+    <form class="post_edit" method="post">
+        {% csrf_token %}
+        <div>delete post 
+            <input type="checkbox" name="delete">
+        </div>
+        <textarea name="status"  cols="30" rows="10">{{post.status}}</textarea>
+        <div class="post_edit_files">
+            <h3>Files</h3>
+            {{post.files.all|file_type_e|safe}}
+        </div>
+        <button>save</button>
+    </form>
+{% endblock main %}
+
+
+{% block script %}
+    
+{% endblock script %}
+    

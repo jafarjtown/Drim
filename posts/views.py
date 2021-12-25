@@ -1,15 +1,12 @@
 from django.http.response import HttpResponse, JsonResponse
-from django.shortcuts import render
-from .models import Post, Comment as C
+from django.shortcuts import redirect, render
+from .models import Post, SavePost,SavedPost, Comment as C
 # Create your views here.
 
 
 def Comment(request, id):
     if request.method == 'POST':
         import json
-        # print(request.POST)
-        # print(request.FILES)
-        # json_loads = json.loads(request.body)
         try:
 
             text = request.POST['text']
@@ -28,8 +25,27 @@ def Comment(request, id):
             print(e)
             return JsonResponse({'error': e})
     return render(request, 'posts/comment.html', {'id': id})
-
-
+def Edit(request, id):
+    context = {}
+    post = Post.objects.defer('author__followers', 'author__followings').get(id = id)  
+    if request.method == 'POST':
+        status = request.POST.get('status')
+        delete = request.POST.get('delete')
+        if delete:
+            post.delete()
+            return redirect('home:home')
+        fileIds = request.POST.getlist('fileIds')
+        for i in fileIds:
+            post.files.get(id = i).delete()
+        post.status = status
+        post.save()
+    context['post'] = post
+    return render(request, 'post/edit.html', context)
+def savePost(request, id):
+    post = SavePost.objects.create(post = Post.objects.get(id = id))
+    save = SavedPost.objects.get_or_create(user = request.user)[0]
+    save.posts.add(post)
+    return redirect('home:home')
 def Like(request, id):
     user = request.user
     post = Post.objects.get(id = id)

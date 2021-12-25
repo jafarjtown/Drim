@@ -6,6 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="theme-color" content="#007bff " />
+		<link rel="shortcut icon" type="image/x-icon" href="{% static 'img/logo/logo.png' %}" />
 		<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
 		<link rel="stylesheet" href="{% static 'css/base/styles.css' %}" />
 		<!-- <link
@@ -16,6 +17,20 @@
 		{% block styles %} {% endblock styles %}
 	</head>
 	<body>
+		<div class="modal_wrapper">
+			<div class="modal_header">
+				{% block modal_header %}
+					<h2>Modal</h2>
+				{% endblock modal_header %}
+				<button id="modal-close"><i class="fa fa-close fa-2x"></i></button>
+					
+			</div>
+			<div class="modal_body">
+				{% block modal %}
+			
+				{% endblock modal %}
+			</div>	
+		</div>
 		<nav class="navbar">
 			<div class="navbar-logo">
 				<a href="/"><img src="{% static 'img/logo/logo.png' %}">
@@ -33,20 +48,24 @@
 			</div>
 			<div class="navbar-collapse">
 				<ul class="navbar-nav">
+					
+						{% block nav %}
+							
+						{% endblock nav %}
+					
 					<li class="nav-item">
 						<a href="{% url 'home:home' %}" class="nav-link text-light">
-							<i class="fa fa-home"></i><span>Dashboard</span>
+							<i class="fa fa-home"></i>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a href="/" class="nav-link text-light">
-							<i class="fa fa-video-camera"></i><span>E-books</span>
+							<i class="fa fa-video-camera"></i>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a href="{% url 'messenger:message' %}" class="nav-link text-light">
-							<i class="fa fa-comment"></i><span> messenger</span>
-
+							<i class="fa fa-comment"></i>
 							{% if user.user_chat.unseen > 0 %} {{user.user_chat.unseen}} 
 							{% endif %}
 						</a>
@@ -54,7 +73,6 @@
 					<li class="nav-item">
 						<a href="{% url 'friends:friends' %}">
 							<i class="fa fa-users"></i>
-							<span>friends</span>
 						</a>
 					</li>
 
@@ -87,12 +105,12 @@
 					</li> -->
 					<li class="nav-item">
 						<a href="{% url 'account:account' %}" class="nav-link text-light">
-							<i class="fa fa-user"></i> <span>Profile</span></a
+							<i class="fa fa-user"></i> </a
 						>
 					</li>
 					<li class="nav-item">
 						<a href="{% url 'market:cart' %}" class="nav-link text-light">
-							<i class="fa fa-shopping-cart"></i><span>cart</span>
+							<i class="fa fa-shopping-cart"></i>
 						</a>
 					</li>
 					<!-- <li class="nav-item">
@@ -114,51 +132,15 @@
 				</ul>
 			</div>	
 		</nav>
-		<div class="modal_wrapper">
-			<div class="modal_header">
-				{% block modal_header %}
-					<h2>Modal</h2>
-				{% endblock modal_header %}
-				<button id="modal-close"><i class="fa fa-close fa-2x"></i></button>
-					
-			</div>
-			<div class="modal_body">
-				{% block modal %}
-			
-				{% endblock modal %}
-			</div>	
-		</div>
 		<div class="body">
-			
-			<div class="main">
-				
-				<div class="main_left">
-					{% block left %}
-					
-					{% if user_notifications.count > 0 %}
-						{% include 'tags/notification.html' %}
-					
-					{% endif %}
-					{% if user_groups.count > 0 %}
-						{% include 'tags/group.html' %}
-					{% else %}
-						<a href="{% url 'group:groups' %}">
-							<button>Explore Groups</button>
-						</a>
-					{% endif %}
-						
-					
-					{% endblock left %}
-				</div>
-				
-					
+
+			<main class="main">
+
 				<div class="main_center">
 					{% block main %} 
 					
 					{% endblock main %}
-					<footer>
-						footer
-					</footer>
+					
 				</div>
 				
 
@@ -172,8 +154,10 @@
 					{% endblock right %}	
 				</div>
 					
-			</div>
-			
+			</main>
+			<footer>
+						footer
+			</footer>
 		</div>
 		{{ user.username|json_script:"username" }}
 		<script src="{% static 'js/base/script.js' %}"></script>

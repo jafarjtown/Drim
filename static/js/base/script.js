@@ -96,3 +96,16 @@ const PlayVideo = (btn, vd) => {
 	}
 	
 }
+
+const seeMores = cl('seemore')
+
+seeMores.forEach(seemore => {
+	seemore.addEventListener('click', function (e) {
+		let div = e.target.previousElementSibling
+		div.classList.toggle('m500')
+		console.log(div.classList)
+		if (div.classList.contains('m500')) {
+			seemore.textContent = 'see more'
+		}else seemore.textContent = 'see less'
+	})
+})

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-import django_heroku
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,14 +25,14 @@ SECRET_KEY = 'c8o4urzp7(u9c-+$)90-efmn!wczw!m&1(m4di@q2z$@^niz@s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     # 'debug_toolbar',
-    #'channels',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,10 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.humanize',
     'accounts.apps.AccountConfig',
-    #'accounts.UserAuth',
+    # 'accounts.UserAuth.apps.UserAuthConfig',
     'home.apps.HomeConfig',
     'django_extensions',
-    #'notes.apps.NotesConfig',
+    # 'notes.apps.NotesConfig',
     'school',
     'posts',
     'rest_framework',
@@ -63,7 +63,6 @@ INSTALLED_APPS = [
     'mainApi',
     'rest_framework.authtoken',
     # 'django_filters',
-    
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -86,7 +85,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 INTERNAL_IPS = [
     '127.0.0.1',
@@ -112,7 +110,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'project.wsgi.application'
-#ASGI_APPLICATION = 'project.asgi.application'
+# ASGI_APPLICATION = 'project.asgi.application'
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
@@ -169,11 +167,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 # STATIC_ROOT = BASE_DIR, 'staticfiles'
-# STATICFILES_DIRS = [BASE_DIR / 'static',]
-# STATIC_URL = '/static/'
-# STATIC_ROOT = BASE_DIR / 'deployment_static/localhost/static/'
-#MEDIA_ROOT = BASE_DIR / 'static/media/'
-#MEDIA_URL = '/media/'
+STATICFILES_DIRS = [BASE_DIR / 'static',]
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'deployment_static/localhost/static/'
+MEDIA_ROOT = BASE_DIR / 'static/media/'
+MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'accounts.User'
 
 
@@ -195,13 +193,3 @@ GRAPH_MODELS = {
   'all_applications': True,
   'group_models': True,
 }
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# import dj_database_url
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-

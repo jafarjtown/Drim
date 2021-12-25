@@ -37,21 +37,31 @@
 				</a>
 			</div>
 			<div class="navbar-search">
+				{% block nav %}
+							
+				{% endblock nav %}
 				<form method="get" action="{% url 'search:search_field' %}">
 					<div>
-						<input type="search" name="search_input">
+						<input type="search" name="search_input" placeholder="search here">
 						<button>
 							<i class="fa fa-search"> search</i>
 						</button>
 					</div>
 				</form>
+				
+				{% block nav1 %}
+				<li class="nav-item">
+					<a href="{% url 'account:account' %}" class="nav-link text-light">
+						<i class="fa fa-user"></i> </a
+					>
+				</li>
+				{% endblock nav1 %}
+					
 			</div>
 			<div class="navbar-collapse">
 				<ul class="navbar-nav">
 					
-						{% block nav %}
-							
-						{% endblock nav %}
+						
 					
 					<li class="nav-item">
 						<a href="{% url 'home:home' %}" class="nav-link text-light">
@@ -103,16 +113,6 @@
 							<i class="fa fa-group"></i> <span>groups</span>
 						</a>
 					</li> -->
-					<li class="nav-item">
-						<a href="{% url 'account:account' %}" class="nav-link text-light">
-							<i class="fa fa-user"></i> </a
-						>
-					</li>
-					<li class="nav-item">
-						<a href="{% url 'market:cart' %}" class="nav-link text-light">
-							<i class="fa fa-shopping-cart"></i>
-						</a>
-					</li>
 					<!-- <li class="nav-item">
 						<a
 							href="{% url 'settings:user_settings' %}"

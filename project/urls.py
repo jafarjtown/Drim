@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('accounts.urls')),
     path('', include('home.urls')),
-    #path('notes/', include('notes.urls')),
+    # path('notes/', include('notes.urls')),
     path('faculty/', include('school.urls')),
     path('posts/', include('posts.urls')),
     path('pages/', include('pages.urls')),

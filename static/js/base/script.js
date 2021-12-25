@@ -109,3 +109,19 @@ seeMores.forEach(seemore => {
 		}else seemore.textContent = 'see less'
 	})
 })
+
+const videos = tg('video')
+const videoIntersect = new IntersectionObserver(entries => {
+	entries.forEach(entry => {
+		if (!entry.isIntersecting) {
+			console.log(entry)
+			entry.target.pause()
+		}
+	})
+}, {
+	threshold: 1
+})
+
+videos.forEach(video => {
+	videoIntersect.observe(video)
+})

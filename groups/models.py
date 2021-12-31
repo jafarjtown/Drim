@@ -11,7 +11,7 @@ class Group(ModelHelper):
     members = models.ManyToManyField('accounts.User', related_name='groups_in',blank=True)
     rules = models.ManyToManyField('Rule',blank=True)
     events = models.ManyToManyField('Event',blank=True)
-    # posts = models.ManyToManyField('posts.Post', blank=True)
+    posts = models.ManyToManyField('posts.Post', blank=True, related_name='group')
     w_posts = models.ManyToManyField('posts.Post', blank=True, related_name='post_against_rule')
     private = models.BooleanField(default=False)
 

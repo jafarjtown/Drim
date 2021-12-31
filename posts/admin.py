@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Post, Comment
+from .models import Post, Comment, Story
 
 
 @admin.register(Post)
@@ -15,3 +15,8 @@ class PostAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('id', 'author',)
     list_filter = ('author',)
+
+@admin.register(Story)
+class StoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'upload_on',)
+    list_filter = ('upload_on',)

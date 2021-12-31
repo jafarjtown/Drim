@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.humanize',
-    'accounts.apps.AccountConfig',
+    'accounts',
     # 'accounts.UserAuth.apps.UserAuthConfig',
     'home.apps.HomeConfig',
     'django_extensions',
@@ -75,6 +75,7 @@ INSTALLED_APPS = [
 # DEBUGGER_PORT = 5678
 # DEBUGGER_WAIT_FOR_ATTACH = False
 SITE_ID = 1
+CORS_ORIGIN_ALLOW_ALL = True
 MIDDLEWARE = [
     # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -110,7 +111,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'project.wsgi.application'
-# ASGI_APPLICATION = 'project.asgi.application'
+ASGI_APPLICATION = 'project.asgi.application'
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',

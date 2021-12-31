@@ -2,12 +2,11 @@ from django.db.models.query_utils import Q
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import serializers
 from .models import User
-from itertools import chain
 
 class UserSerialzer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['username', 'email', 'last_name', 'first_name', 'avatar', 'is_student', 'is_teacher']
 
 
 class UserViewSet(ModelViewSet):

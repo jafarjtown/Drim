@@ -1,10 +1,11 @@
 from django.urls import path
 from . import views
 from rest_framework import routers
-from .serializers import InstitutionViewSet
+from .serializers import InstitutionBlogsViewSet, InstitutionViewSet
 router = routers.DefaultRouter()
 
 router.register('institutions', InstitutionViewSet)
+router.register('institutionsblogs', InstitutionBlogsViewSet)
 
 app_name = 'institution'
 urlpatterns = [

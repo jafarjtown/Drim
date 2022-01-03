@@ -1,7 +1,7 @@
 from django.db.models import fields
 from rest_framework.serializers import ModelSerializer
 from rest_framework.viewsets import ModelViewSet
-from accounts.serializers import UserSerialzer
+from accounts.serializers import UserSerializer
 
 from posts.models import Post
 from .models import Institution
@@ -21,7 +21,7 @@ class instSetSerializerPost(ModelSerializer):
         fields = ['name','logo', 'id','verified']
 
 class PostSerializer(ModelSerializer):
-    author = UserSerialzer()
+    author = UserSerializer()
     institution = instSetSerializerPost(many=True)
     class Meta:
         model = Post

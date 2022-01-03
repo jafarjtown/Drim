@@ -8,6 +8,9 @@ from school.models import Faculty
 
 
 def Login(request):
+    # print(dir(request.user))
+    if request.user.is_authenticated:
+        return redirect('home:home')
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']

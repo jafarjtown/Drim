@@ -7,8 +7,8 @@ from .models import User, Student, Teacher
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = (
-        'password',
-        'last_login',
+       
+        
         'is_superuser',
         'username',
         'first_name',
@@ -18,8 +18,7 @@ class UserAdmin(admin.ModelAdmin):
         'date_joined',
         'id',
         'email',
-        'date_of_birth',
-        'avatar',
+        
     )
     list_filter = (
         'last_login',

@@ -5,6 +5,7 @@ from . import views
 from .UserAuth import views as AuthViews
 from django.contrib.auth import views as auth_view
 from rest_framework.routers import DefaultRouter
+from django.views.decorators.csrf import csrf_exempt
 
 router = DefaultRouter()
 router.register('users', UserViewSet)
@@ -15,6 +16,8 @@ urlpatterns = [
     path('avatar/', views.AddAvatar, name='add-avatar'),
     path('avatar/save', views.saveAvatar, name='save-avatar'),
     path('auth/', AuthViews.Login, name='login'),
-    path('auth/register', AuthViews.Register, name='register'),
+    path('auth/register', csrf_exempt(views.registerUser), name='register'),
     path('auth/logout', AuthViews.Logout, name='logout'),
+    path('auth/verify', csrf_exempt(views.VerifyEmail), name='verify_email'),
+    path('auth/login/', csrf_exempt(views.loginUser), name='login_user'),
 ]

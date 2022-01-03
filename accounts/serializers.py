@@ -2,8 +2,8 @@ from django.db.models.query_utils import Q
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import serializers
 from .models import User
-
-class UserSerialzer(serializers.ModelSerializer):
+from rest_auth.registration.serializers import RegisterSerializer
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'email', 'last_name', 'first_name', 'avatar', 'is_student', 'is_teacher']
@@ -11,7 +11,7 @@ class UserSerialzer(serializers.ModelSerializer):
 
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = UserSerialzer
+    serializer_class = UserSerializer
 
     def get_queryset(self):
         user = self.request.user
@@ -22,3 +22,8 @@ class UserViewSet(ModelViewSet):
                 not_friends.append(u)
         
         return not_friends
+
+class RegisterUserSerializer(RegisterSerializer):
+    first_name = serializers.CharField(required = True)
+    last_name = serializers.CharField(required = True)
+    

@@ -3,11 +3,13 @@ from institution.models import Institution
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render
-from posts.models import Post
-from accounts.models import User
+from posts.models import Post, Story
+from accounts.models import Student, User
 from notifications.notifcations import PostNotification
 from django.core.paginator import Paginator
 from Files.models import File
+from django.utils import timezone
+import time
 # Create your views here.
 def Escape(string):
     import re
@@ -24,6 +26,10 @@ def Escape(string):
     return text
 @login_required()
 def Home(request):
+    
+    story=Story.objects.all()
+    for st in story:
+        st.expire()
     context = {}
     content_type = {
             'image': [
@@ -52,8 +58,10 @@ def Home(request):
         }
     
     user = request.user
+    # creating new posts
     if request.method == 'POST':
         text = request.POST
+        print(text)
         files = request.FILES
         status = text['status']
         estatus = Escape(status)
@@ -95,7 +103,7 @@ def Home(request):
 
         except Exception as e:
             print(e)
-    posts = Post.objects.select_related('author','group').defer('author__followers','author__followings','author__posts','author__subscribed','author__activities').filter(
+    posts = Post.objects.select_related('author').defer('author__followers','author__followings','author__posts','author__activities').filter(
         Q(author = user) |
         Q(author__username__in = user.followings.values_list('username')) |
         Q(page__name__in = user.pages_followed.values_list('name'))|
@@ -106,17 +114,3 @@ def Home(request):
     obj_page = paginator.get_page(page_number)
     context['obj_page'] = obj_page
     return render(request, 'home/index.html', context)
-# import json
-# def createNewPost(request):
-#     json_dumbs = json.loads(request.body)
-#     text = json_dumbs['text']
-#     username = json_dumbs['username']
-#     user = User.objects.get(username = username)
-#     try:
-#         Post.objects.create(status = text, author = user)
-#         PostNotification('post', user, user.friends.all(), True).send()
-#     except Exception as e:
-#         print(e)
-#         pass
-
-#     return HttpResponse('thanks')

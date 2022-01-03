@@ -1,5 +1,5 @@
 from django.urls.conf import include
-from posts.serializers import PostViewSet, PostViewSetDetail
+from posts.serializers import PostViewSet, PostViewSetDetail, StoryViewSet
 from django.urls import path
 from . import views
 from django.views.decorators.csrf import csrf_exempt
@@ -10,6 +10,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 
 router.register('posts', PostViewSet)
+router.register('story', StoryViewSet)
 router.register('posts/detail', PostViewSetDetail)
 
 

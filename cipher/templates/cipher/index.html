@@ -1,0 +1,95 @@
+{% extends 'cipher/base.html' %}
+
+
+{% block style %}
+    <style>
+        #encriptForm, #decriptForm{
+            display: none;
+        }
+    </style>
+{% endblock style %}
+    
+{% block main %}
+    
+    <div class="start">
+        <button id="encriptbtn">Encript message</button>
+        <button id="decriptbtn">decript message</button>
+    </div>
+
+    <div action="{% url 'cipher:encript' %}" method="post" id="encriptForm">
+        {% csrf_token %}
+        <div class="text">
+            <textarea id="etext" placeholder="Enter Your Text here.." name="text"></textarea>
+        </div>
+        <div class="key">
+            <input type="text" id="ekey" name="key" placeholder="Enter Key here...">
+        </div>
+        <div class="result" id="ere">
+            Your Encripted message will be here
+        </div>
+        <div class="btn">
+            <button id="esub">Encript</button>
+        </div>
+    </div>
+
+    <div action="{% url 'cipher:decript' %}" method="post" id="decriptForm">
+        {% csrf_token %}
+        <div class="text">
+            <textarea id="dtext" placeholder="Enter Your Text here.." name="text"></textarea>
+        </div>
+        <div class="key">
+            <input type="text"  id="dkey" name="key" placeholder="Enter Key here...">
+        </div>
+        <div class="result" id="dre">
+            Your Encripted message will be here
+        </div>
+        <div class="btn">
+            <button id="dsub">Decript</button>
+        </div>
+    </div>
+{% endblock main %}
+
+
+{% block script %}
+       
+<script>
+    async function Decript(){
+        let text = $('#dtext')[0].value
+        let key = $('#dkey')[0].value
+        let req = await fetch('decript', {method: 'POST', body:JSON.stringify({
+            text,
+            key
+        })})
+        let res = await req.json()
+       $('#dre').textContent(res.decripted)
+    }
+    
+    async function Encript(){
+        let text = $('#etext')[0].value
+        let key = $('#ekey')[0].value
+        let req = await fetch('encript', {method: 'POST', body:JSON.stringify({
+            text,
+            key
+        })})
+        let res = await req.json()
+       $('#ere').textContent(res.encripted)
+    }
+    
+    let En = $('#encriptbtn')[0]
+    let De = $('#decriptbtn')[0]
+    let Ds = $('#dsub')[0]
+    let Es = $('#esub')[0]
+    Ds.onclick = () => Decript()
+    Es.onclick = () => Encript()
+    En.onclick = () => {
+        $('.start').setDisplay('none')
+        $('#encriptForm').setDisplay('block')
+    }
+    De.onclick = () => {
+        $('.start').setDisplay('none')
+        $('#decriptForm').setDisplay('block')
+    }
+</script>
+    
+{% endblock script %}
+ 

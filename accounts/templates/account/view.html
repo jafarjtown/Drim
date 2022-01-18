@@ -8,13 +8,9 @@
 {% block main %}
 
 <div class="account_imgs">
-	<a href="{% url 'account:add-avatar' %}" id="cover_link">
-		<img src="{{user.get_cover}}" alt="{{user}}" class="account_cover_img">
-	</a>
+		<img src="{{account.get_cover}}" alt="{{account}}" class="account_cover_img">
 	
-	<a href="{% url 'account:add-avatar' %}">
-		<img src="{{user.get_avatar}}" class="account_avatar_img" alt="{{user}}"/>
-	</a>
+		<img src="{{account.get_avatar}}" class="account_avatar_img" alt="{{account}}"/>
 </div>
 <div class="account_about">
 	<div class="quote">
@@ -25,43 +21,26 @@
 		<a href='' class="fa fa-pencil"></a>
 	</div>
 	<div class="about">
-		<p>{{user.get_full_name}}</p>
-		<p>{{user.email}}</p>
-		<small>{{user.username}}</small>
+		<p>{{account.get_full_name}}</p>
+		<p>{{account.email}}</p>
+		<small>{{account.username}}</small>
 	</div>
 </div>
-{% if user.student or user.teacher %}
-<div class="account_type_setting">
-	{% if user.student %}
-		<a href="">Student configurations <i class="fa fa-gears"></i></a>
-	{% else %}
-	<a href="">Tutor configurations <i class="fa fa-gears"></i></a>
-
-	{% endif %}
-		
-</div>
-{% else %}
-<div class="account_type">
-		<a href="{% url 'account:student_create' %}">Student</a>
-		<a href="{% url 'account:tutor_create' %}">Tutor</a>
-</div>
-{% endif %}	
-
-{% if user.is_student or user.is_teacher %}
+{% if account.is_student or account.is_teacher %}
 	
 <div class="account_subs">
 	<h2>
-	{% if user.is_student %}
+	{% if account.is_student %}
 	Tutor's
-	{% elif user.is_teacher %}
+	{% elif account.is_teacher %}
 	Student's
 	{% endif %}
 		</h2>
 	
-	{% if user.is_student %}
+	{% if account.is_student %}
 	<div class="account_sub">
 		
-		{% for tutor in user.get_tutors %}
+		{% for tutor in account.get_tutors %}
 			<a href="{% url 'account:profile' tutor.parent.id %}" class="account">
 			<img src="{{tutor.get_avatar}}" class="account_img"/>
 			<div class="account_name">{{tutor.get_full_name}}</div>
@@ -70,9 +49,9 @@
 			
 		
 	</div>
-	{% elif user.is_teacher %}
+	{% elif account.is_teacher %}
 	<div class="account_sub">
-		{% for student in user.get_students %}
+		{% for student in account.get_students %}
 			<a href="{% url 'account:profile' student.parent.id %}" class="account">
 			<img src="{{student.get_avatar}}" class="account_img"/>
 			<div class="account_name">{{student.get_full_name}}</div>
@@ -85,13 +64,12 @@
 </div>	
 {% endif %}
 
-<div class="account_footer">
-	<ul>
-		<a href="{% url 'account:logout' %}">
-			<li>Log Out</li>
-		</a>
-	</ul>
+{% if account.main_folder %}
+	<div class="folder">
+	<a href="{% url 'files:view_folder' account.main_folder.id account.id %}" class="fa fa-folder"> {{account.username}} folder's</a>
 </div>
+{% endif %}
+	
 
 {% endblock main %}
 

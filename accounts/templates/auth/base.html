@@ -5,27 +5,28 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="theme-color" content="#007bff " />
+		<meta name="theme-color" content="#0064e5 " />
 
-		<title>Authentication {% block title %} {% endblock title %}</title>
-		<!-- <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}"> -->
-		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
-        
+		<title>Authentication</title>
+		<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/auth/styles.css' %}" />
         {% block style %}
             
-        {% endblock style %}
-            
+        {% endblock style %}   
 	</head>
 	<body>
 		<div class="container">
 			<div class="connect">
-				<p>luvr.io</p>
+				<p>Dream</p>
 				<h3>Connect Endlessly</h3>
 			</div>
 			<div class="form_wrapper">
 				
 				<div class="form">
-					<p id="st">Get started</p>
+					<p id="st">{% block st %}
+						Get Started
+					{% endblock st %}
+					  </p>
 
                     {% block main %} 
                     
@@ -34,13 +35,11 @@
 			</div>
 		</div>
         <div class="loading_div">
-			<img src="{% static 'img/logo/logo.png' %}" />
-			<p>connect. share. learn.</p>
-		</div>
-        {% block script %}
-            
-        {% endblock script %}
-            
-		<script src="{% static 'js/script.js' %}"></script>
+			<div class="loading_box">
+				<div></div>
+			</div>
+		</div> 
+		<script src="{% static 'js/dream.js' %}"></script>
+		<script src="{% static 'js/auth/script.js' %}"></script>
 	</body>
 </html>

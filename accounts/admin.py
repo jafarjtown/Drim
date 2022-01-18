@@ -1,23 +1,15 @@
 
 from django.contrib import admin
 
-from .models import User, Student, Teacher
+from .models import Contact, User, Student, Teacher
 
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = (
-       
-        
-        'is_superuser',
         'username',
-        'first_name',
-        'last_name',
-        'is_staff',
-        'is_active',
-        'date_joined',
-        'id',
         'email',
+        'id'
         
     )
     list_filter = (
@@ -47,3 +39,9 @@ class TeacherAdmin(admin.ModelAdmin):
     list_display = ('id', 'parent')
     list_filter = ('parent',)
     raw_id_fields = ('students',)
+
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('id', 'resipient')
+    list_filter = ('resipient',)

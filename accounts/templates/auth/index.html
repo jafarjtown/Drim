@@ -1,25 +1,5 @@
 {% extends 'auth/base.html' %}
 {% load static %}
-
-{% block style %}
-    <style>
-        #passwordView, #message, #new, #login, #register{
-            display: none;
-        }
-        #passwordView{
-            width: 100%;
-            flex-direction: column;
-            align-items: center;
-        }
-        #new{
-            width: 90%;
-        }
-        #new .form_input{
-            width: 100%;
-        }
-    </style>
-{% endblock style %}
-    
 {% block st %}
     Get Started
 {% endblock st %}
@@ -44,6 +24,9 @@
                     <input type="password" id="password" placeholder="********">
                 </div>
                 <small id="perror" class="error">Password must be 6+</small>
+                <div id="fgp">
+                    <a href="{% url 'password_reset' %}" id="fgpl">Forgetton password</a>
+                </div>
                 
             </div>
         </div>
@@ -95,220 +78,10 @@
         <div class="social" id="socials">
             <hr>
             <b>Or</b>
-            <button class="btn">Continue with facebook</button>
-            <button class="btn">Continue with Google</button>
-            <button class="btn">Continue with Apple</button>
+            <button class="btn fa fa-facebook"> Continue with facebook</button>
+            <button class="btn fa fa-google"> Continue with Google</button>
+            <button class="btn fa fa-apple"> Continue with Apple</button>
         </div>
     </div>
 {% endblock main %}
-
-
-{% block script %}
-    <script>
-        const verifyBtn = document.querySelector('#verify_email')
-        const loginyBtn = document.querySelector('#login')
-        const registerBtn = document.querySelector('#register')
-        const socialsBtn = document.querySelector('#socials')
-        const formCon = document.querySelector('#form')
-
-        verifyBtn.addEventListener('click', async function(){
-            if(ValidateData(false,true,[false,false],false)){
-                 socialsBtn.style.display = 'none'
-            let email = document.getElementById('email')
-            let emailV = document.getElementById('emailV')
-            let rt = await verifyEmail(email.value)
-            if(rt.code === 200){
-                let message = document.getElementById('message')
-                document.getElementById('st').textContent = 'Login'
-                message.innerHTML = `<div class='user'>
-                    <img src='${rt.avatar}'/>
-                    <span>${email.value}</span>
-                </div>`
-                console.log(rt.avatar)
-                message.style.display = 'block'
-                document.getElementById('passwordView').style.display = 'flex'
-                emailV.style.display = 'none'
-                formCon.classList.add('tr_log')
-                verifyBtn.style.display = 'none'
-                loginyBtn.style.display = 'block'
-            }
-            else{
-                emailV.style.display = 'none'
-                let message = document.getElementById('message')
-                document.getElementById('st').textContent = 'Sign up'
-                message.textContent = ''
-                message.innerHTML = `looks like you dont have an account <br/> Lets create an account for <b id='email1'>${document.getElementById('email').value}</b>`
-                message.style.display = 'block'
-                let registerView = document.getElementById('new')
-                registerView.style.display = 'block'
-                document.getElementById('passwordView').style.display = 'none'
-                formCon.classList.add('tr_sign')
-
-                verifyBtn.style.display = 'none'
-                registerBtn.style.display = 'block'
-            }
-            }
-           
-            
-        })
-        loginyBtn?.addEventListener('click', async function(){
-            if(ValidateData(false,true,[false,true],true)){
-                let email = document.getElementById('email').value
-            let password = document.getElementById('password').value
-            let message = document.getElementById('message')
-            socialsBtn.style.display = 'none'
-            const res = await loginUser(email, password)
-            hideForm()
-            if(parseInt(res.code) === 200){
-               message.textContent = 'Login successfully'
-              location.reload()
-            }else{
-                showForm()
-                message.textContent = 'Wrong password! try again'
-            }
-            }
-            
-            
-        })
-        registerBtn?.addEventListener('click', async function(){
-            if(ValidateData(true,true,[true,false],true)){
-            let email = document.getElementById('email1').textContent
-            let username = document.getElementById('username').value
-            let full_name = document.getElementById('full_name').value
-            let password = document.getElementById('password1').value
-            const [first_name, last_name] = full_name.split(' ')
-            const res = await registerUser(email, first_name, last_name, username,password)
-            hideForm()
-            if(res === 200) {
-                location.reload() 
-            }else{
-                showForm()
-            } 
-            }
-            
-        })
-        
-        async function verifyEmail(email){
-            const res = await fetch('http://127.0.0.1:8000/account/auth/verify', {
-                method: 'POST',
-                body:JSON.stringify({
-                    email
-                })
-            })
-            let r = await res.json()
-            console.log(r)
-            return r
-        }
-
-        async function loginUser(email, password){
-            const res = await fetch('http://localhost:8000/account/auth/login/', {
-                method: 'POST',
-                body:JSON.stringify({
-                    email,
-                    password
-                })
-            })
-            let r = await res.json()
-            console.log(r)
-            return r
-        }
-        async function registerUser(email, first_name, last_name, username, password){
-            let formData = new FormData
-            formData.append('email', email)
-            formData.append('username', username)
-            formData.append('last_name', last_name)
-            formData.append('first_name', first_name)
-            formData.append('password1', password)
-            formData.append('password2', password)
-            let f = {
-                email,
-                first_name,
-                last_name,
-                username,
-                password
-            }
-            const res = await fetch('http://127.0.0.1:8000/account/auth/register', {
-                method: 'POST',
-                body:JSON.stringify(f),
-                
-            })
-            let r = await res.json()
-            
-            
-            return r.code
-        }
-        function hideForm(){
-            let body = document.querySelector('body')
-            let form = document.querySelector('.container')
-            let div = document.querySelector('.loading_div')
-            body.style.backgroundPosition = 'bottom center'
-            body.style.backgroundSize = 'cover'
-            form.style.display = 'none'
-            div.style.display = 'flex'
-        }
-        function showForm(){
-            let body = document.querySelector('body')
-            let form = document.querySelector('.container')
-            let div = document.querySelector('.loading_div')
-            body.style.backgroundPosition = '0% 70%'
-            body.style.backgroundSize = '135%'
-            form.style.display = 'flex'
-            div.style.display = 'none'
-        }
-        function ValidateData(u,e,p,f){
-            let email = document.querySelector('#email').value
-            let password = document.querySelector('#password').value
-            let password1 = document.querySelector('#password1').value
-            let username = document.querySelector('#username').value
-            let full_name = document.querySelector('#full_name').value
-            let p1 = p[0]
-            let p2 = p[1]
-            console.log(p2)
-            let regex = /\S+@\S+\.\S+/
-            if(u && username?.length < 4) {   
-                document.querySelector('#uerror').style.display = 'block'
-                setTimeout(()=>{
-                document.querySelector('#uerror').style.display = 'none'
-
-                },2000)
-                return false
-            }
-            if(p1 &&password1?.length < 4){
-                document.querySelector('#p1error').style.display = 'block'
-                setTimeout(()=>{
-                document.querySelector('#p1error').style.display = 'none'
-
-                },2000)
-                return false
-            } 
-            if(p2&&password?.length < 4){
-                document.querySelector('#perror').style.display = 'block'
-                setTimeout(()=>{
-                document.querySelector('#perror').style.display = 'none'
-
-                },2000)
-                return false
-            } 
-            if(f&& (!full_name?.includes(' '))){
-                document.querySelector('#ferror').style.display = 'block'
-                setTimeout(()=>{
-                document.querySelector('#ferror').style.display = 'none'
-
-                },2000)
-                return false
-            }
-            if(e&&!regex.test(email)) {
-                document.querySelector('#eerror').style.display = 'block'
-                setTimeout(()=>{
-                document.querySelector('#eerror').style.display = 'none'
-
-                },2000)
-                return false
-            }
-            return true
-        }
-    </script>
-{% endblock script %}
-    
-    
 

@@ -5,173 +5,298 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="theme-color" content="#007bff " />
-		<link rel="shortcut icon" type="image/x-icon" href="{% static 'img/logo/logo.png' %}" />
+		<meta
+			name="description"
+			content="a website to connect with tutors and student, share,save ebooks online"
+		/>
+		<meta name="author" content="Jafar Idris" />
+		<meta name="theme-color" content="#0064e5" />
+		<meta http-equiv="X-UA-Compatible" content="IE=7" />
+		<link
+			rel="shortcut icon"
+			href="{% static 'img/logo/logo.png' %}"
+			type="image/x-icon"
+		/>
+		<title>Dream</title>
 		<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
-		<link rel="stylesheet" href="{% static 'css/base/styles.css' %}" />
-		<!-- <link
-			rel="stylesheet"
-			href="{% static 'bootstrap/css/bootstrap.min.css' %}"
-		/> -->
-		<title>{% block title %} App {% endblock title %}</title>
-		{% block styles %} {% endblock styles %}
+		<link rel="stylesheet" href="{% static 'css/base/style.css' %}" />
+
+		{% block style %} {% endblock style %}
 	</head>
-	<body>
-		<div class="modal_wrapper">
-			<div class="modal_header">
-				{% block modal_header %}
-					<h2>Modal</h2>
-				{% endblock modal_header %}
-				<button id="modal-close"><i class="fa fa-close fa-2x"></i></button>
-					
-			</div>
-			<div class="modal_body">
-				{% block modal %}
-			
-				{% endblock modal %}
-			</div>	
-		</div>
-		<nav class="navbar">
-			<div class="navbar-logo">
-				<a href="/"><img src="{% static 'img/logo/logo.png' %}">
-				</a>
-			</div>
-			<div class="navbar-search">
-				{% block nav %}
-							
-				{% endblock nav %}
-				<form method="get" action="{% url 'search:search_field' %}">
-					<div>
-						<input type="search" name="search_input" placeholder="search here">
-						<button>
-							<i class="fa fa-search"> search</i>
-						</button>
-					</div>
-				</form>
-				
-				{% block nav1 %}
-				<li class="nav-item">
-					<a href="{% url 'account:account' %}" class="nav-link text-light">
-						<i class="fa fa-user"></i> </a
-					>
+	<body class="default light">
+		<header>
+			<button id="theme-toggler"><i class="fa fa-moon-o"></i></button>
+			<ul>
+				<li>
+					<a href="/">
+						<span> Home </span>
+						<svg
+							id="Capa_1"
+							viewBox="0 0 512 512"
+							xmlns="http://www.w3.org/2000/svg"
+							xmlns:xlink="http://www.w3.org/1999/xlink"
+						>
+							<g>
+								<g fill="#0064e5">
+									<path d="m229.018 306.859h53.965v91.141h-53.965z" />
+									<circle cx="256" cy="225.912" r="26.982" />
+									<path
+										d="m406.865 237.541c-30.329-30.329-85.641-85.041-144.506-143.906-3.513-3.513-9.205-3.513-12.718 0-30.276 30.276-124.298 123.698-144.506 143.906-3.513 3.513-3.513 9.205 0 12.718s9.205 3.513 12.718 0l2.635-2.635v141.381c0 4.971 4.023 8.994 8.994 8.994h81.547v-100.134c0-4.971 4.023-8.994 8.994-8.994h71.953c4.971 0 8.994 4.023 8.994 8.994v100.135h81.547c4.971 0 8.994-4.023 8.994-8.994v-141.381l2.635 2.635c3.513 3.513 9.205 3.513 12.718 0s3.514-9.205.001-12.719zm-150.865 33.342c-24.795 0-44.971-20.175-44.971-44.971s20.175-44.971 44.971-44.971 44.971 20.175 44.971 44.971-20.176 44.971-44.971 44.971z"
+									/>
+								</g>
+							</g>
+						</svg>
+					</a>
 				</li>
-				{% endblock nav1 %}
+				<li>
+					<a href="{% url 'friends:friends' %}">
+						<span> Friends </span>
+						<svg
+							id="Capa_1"
+							height="512"
+							viewBox="0 0 512 512"
+							width="512"
+							xmlns="http://www.w3.org/2000/svg"
+							xmlns:xlink="http://www.w3.org/1999/xlink"
+						>
+							<g>
+								<path
+									d="m121.088 364.529c0 4.971 4.023 8.994 8.994 8.994h251.836c4.971 0 8.994-4.023 8.994-8.994s-4.023-8.994-8.994-8.994c-14.879 0-26.982-12.103-26.982-26.982v-87.276c0-54.338-42.235-102.678-98.936-102.817-55.32-.135-98.936 45.164-98.936 98.952v91.141c0 14.879-12.103 26.982-26.982 26.982-4.971 0-8.994 4.023-8.994 8.994z"
+									fill="#0064e5"
+								/>
+								<path
+									d="m229.736 123.506c8.383-1.924 17.07-3.036 26.027-3.036 9.16.022 18.031 1.236 26.585 3.304-2.629-12.14-13.431-21.274-26.348-21.274-12.819 0-23.531 9.004-26.264 21.006z"
+									fill="#0064e5"
+								/>
+								<path
+									d="m256 409.5c14.633 0 27.529-7.133 35.747-17.988h-71.494c8.218 10.855 21.114 17.988 35.747 17.988z"
+									fill="#0064e5"
+								/>
+							</g>
+						</svg>
+					</a>
+				</li>
+				<li>
+					<a href="{% url 'files:main' %}">
+						<span> Groups </span>
+						<svg
+							id="Capa_1"
+							height="512"
+							viewBox="0 0 512 512"
+							width="512"
+							xmlns="http://www.w3.org/2000/svg"
+							xmlns:xlink="http://www.w3.org/1999/xlink"
+						>
+							<g fill="#0064e5">
+								<path
+									d="m102.5 363.93c0 5.037 3.957 8.994 8.994 8.994h289.012c5.037 0 8.994-3.957 8.994-8.994v-134.912h-307z"
+								/>
+								<path
+									d="m400.506 175.053h-158.716l-33.459-33.278c-1.618-1.799-3.957-2.699-6.295-2.699h-90.541c-5.037 0-8.994 3.957-8.994 8.994v62.959h307v-26.982c-.001-5.037-3.958-8.994-8.995-8.994z"
+								/>
+							</g>
+						</svg>
+					</a>
+				</li>
+				<li>
+					<a href="{% url 'messenger:message' %}">
+						<span> Messenger </span>
+						<svg
+							id="Capa_1"
+							enable-background="new 0 0 512 512"
+							height="512"
+							viewBox="0 0 512 512"
+							width="512"
+							xmlns="http://www.w3.org/2000/svg"
+							xmlns:xlink="http://www.w3.org/1999/xlink"
+						>
+							<g>
+								<path
+									d="m397.51 157.064h-283.023l141.513 105.682z"
+									fill="#0064e5"
+								/>
+								<path
+									d="m261.393 281.182c-3.171 2.387-7.578 2.414-10.786 0l-148.107-110.631v175.39c0 4.971 4.023 8.994 8.994 8.994h289.012c4.971 0 8.994-4.023 8.994-8.994v-175.391z"
+									fill="#0064e5"
+								/>
+							</g>
+						</svg>
+					</a>
+				</li>
+
+				{% if user.is_teacher %}
+				<li>
+					<a href="">
+						<svg
+							id="Capa_1"
+							enable-background="new 0 0 512 512"
+							height="512"
+							viewBox="0 0 512 512"
+							width="512"
+							xmlns="http://www.w3.org/2000/svg"
+							xmlns:xlink="http://www.w3.org/1999/xlink"
+						>
+							<g>
+								<g>
+									<g fill="#0064e5">
+										<path
+											d="m111.494 184.047h53.965c4.971 0 8.994-4.023 8.994-8.994v-53.965c0-4.971-4.023-8.994-8.994-8.994h-53.965c-4.971 0-8.994 4.023-8.994 8.994v53.965c0 4.971 4.023 8.994 8.994 8.994z"
+										/>
+										<path
+											d="m111.494 291.977h53.965c4.971 0 8.994-4.023 8.994-8.994v-53.965c0-4.971-4.023-8.994-8.994-8.994h-53.965c-4.971 0-8.994 4.023-8.994 8.994v53.965c0 4.971 4.023 8.994 8.994 8.994z"
+										/>
+										<path
+											d="m111.494 399.906h53.965c4.971 0 8.994-4.023 8.994-8.994v-53.965c0-4.971-4.023-8.994-8.994-8.994h-53.965c-4.971 0-8.994 4.023-8.994 8.994v53.965c0 4.971 4.023 8.994 8.994 8.994z"
+										/>
+									</g>
+									<path
+										d="m400.506 112.094h-199.07c-4.971 0-8.994 4.023-8.994 8.994v53.965c0 4.971 4.023 8.994 8.994 8.994h199.07c4.971 0 8.994-4.023 8.994-8.994v-53.965c0-4.971-4.023-8.994-8.994-8.994z"
+										fill="#0064e5"
+									/>
+									<path
+										d="m400.506 220.023h-199.07c-4.971 0-8.994 4.023-8.994 8.994v53.965c0 4.971 4.023 8.994 8.994 8.994h199.07c4.971 0 8.994-4.023 8.994-8.994v-53.965c0-4.971-4.023-8.994-8.994-8.994z"
+										fill="#0064e5"
+									/>
+									<path
+										d="m400.506 327.953h-199.07c-4.971 0-8.994 4.023-8.994 8.994v53.965c0 4.971 4.023 8.994 8.994 8.994h199.07c4.971 0 8.994-4.023 8.994-8.994v-53.965c0-4.971-4.023-8.994-8.994-8.994z"
+										fill="#0064e5"
+									/>
+								</g>
+							</g>
+						</svg>
+					</a>
+				</li>
+				{% elif user.is_student%}
+				<li>
+					<a href="">
+						<svg
+							id="Capa_1"
+							enable-background="new 0 0 512 512"
+							height="512"
+							viewBox="0 0 512 512"
+							width="512"
+							xmlns="http://www.w3.org/2000/svg"
+							xmlns:xlink="http://www.w3.org/1999/xlink"
+						>
+							<g>
+								<g>
+									<path
+										d="m327.953 336.947c-47.298 0-63.284 29.793-63.934 31.058-1.563 3.013-5.349 4.295-8.072 4.892-3.382-.026-6.482-1.924-7.993-4.945-.624-1.212-16.609-31.005-63.908-31.005-28.03 0-53.248 10.081-66.993 35.977h277.893c-13.716-25.843-38.876-35.977-66.993-35.977z"
+										fill="#0064e5"
+									/>
+									<path
+										d="m184.047 318.959c30.465 0 50.504 10.52 62.959 20.904v-179.882c-12.455-10.384-32.494-20.904-62.959-20.904-58.848 0-79.764 39.279-80.598 40.948-.624 1.247-.949 2.626-.949 4.023v177.757c12.178-23.612 41.176-42.846 81.547-42.846z"
+										fill="#0064e5"
+									/>
+									<path
+										d="m327.953 139.076c-30.465 0-50.504 10.52-62.959 20.904v179.883c12.455-10.384 32.494-20.904 62.959-20.904 40.415 0 69.389 19.272 81.547 42.844v-177.756c0-1.397-.325-2.776-.949-4.023-.834-1.669-21.749-40.948-80.598-40.948z"
+										fill="#0064e5"
+									/>
+								</g>
+							</g>
+						</svg>
+					</a>
+				</li>
+				{% endif %}
+				<li>
+					<a href="">
+						<svg
+							id="Capa_1"
+							enable-background="new 0 0 512 512"
+							height="512"
+							viewBox="0 0 512 512"
+							width="512"
+							xmlns="http://www.w3.org/2000/svg"
+							xmlns:xlink="http://www.w3.org/1999/xlink"
+						>
+						
+							<g>
+				
+								<g 	fill="#0064e5">
+									<path
+										d="m330.228 288.303c15.792-18.05 33.702-38.515 33.702-77.873 0-59.516-48.414-107.93-107.93-107.93s-107.93 48.414-107.93 107.93c0 39.358 17.909 59.823 33.702 77.873 13.574 15.515 26.363 30.97 28.757 57.639h90.943c2.393-26.669 15.182-42.125 28.756-57.639zm-74.228-5.92c-4.967 0-8.994-4.027-8.994-8.994 0-4.968 4.027-8.994 8.994-8.994s8.994 4.026 8.994 8.994c0 4.967-4.027 8.994-8.994 8.994zm8.994-44.971c0 4.971-4.023 8.994-8.994 8.994s-8.994-4.023-8.994-8.994v-53.965c0-4.971 4.023-8.994 8.994-8.994s8.994 4.023 8.994 8.994z"
+									/>
+									<path
+										d="m220.023 409.5h71.953c4.971 0 8.994-4.023 8.994-8.994v-36.576h-89.941v36.576c0 4.971 4.023 8.994 8.994 8.994z"
+									/>
+								</g>
+							</g>
+						</svg>
+					</a>
+				</li>
+				<li>
+					<a href="{% url 'account:account' %}">
+						<img src="{{user.get_avatar}}" alt="{{user}}" />
+					</a>
+				</li>
+			</ul>
+		</header>
+		<div class="body">
+			<div class="left-nav">
+				
+				{% block left-nav %}
+					<div class="apps">
+						<h3>in-built apps</h3>
+						<ul>
+							<a href="">
+
+								<li>
+									<i class="fa fa-link"> url shortener</i> 
+								</li>
+							</a>
+							<a href="{% url 'cipher:index' %}">
+								
+								<li>
+									<i class="fa fa-lock"> Caesar Cipher</i> 
+								</li>
+							</a>
+							<a href="">
+
+								<li>
+									<i class="fa fa-user-md"> portfolio</i> 
+								</li>
+							</a>
+							<a href="">
+								<li>
+								<i class="fa fa-file-archive-o"> CV creator</i> 
+							</li>
+							</a>
+							<a href="{% url 'pages:index' %}">
+								<li>
+								<i class="fa fa-pagelines"> page</i> 
+							</li>
+							</a>
+							<a href="">
+								<li>
+								<i class="fa fa-shopping-cart"> E-sale</i> 
+							</li>
+							</a>
+							
+						</ul>
+					</div>
+				{% endblock left-nav %}
 					
 			</div>
-			<div class="navbar-collapse">
-				<ul class="navbar-nav">
-					
-						
-					
-					<li class="nav-item">
-						<a href="{% url 'home:home' %}" class="nav-link text-light">
-							<i class="fa fa-home"></i>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="/" class="nav-link text-light">
-							<i class="fa fa-video-camera"></i>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="{% url 'messenger:message' %}" class="nav-link text-light">
-							<i class="fa fa-comment"></i>
-							{% if user.user_chat.unseen > 0 %} {{user.user_chat.unseen}} 
-							{% endif %}
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="{% url 'friends:friends' %}">
-							<i class="fa fa-users"></i>
-						</a>
-					</li>
-
-					<!-- <li class="nav-item">
-						<a href="{% url 'pages:home-pages' %}" class="nav-link text-light">
-							<i class="fa fa-globe"></i>
-							<span>Pages {{user.pages.count}}</span></a
-						>
-					</li> -->
-					<!-- <li class="nav-item">
-						<a
-							href="{% url 'institution:institutions' %}"
-							class="nav-link text-light"
-						>
-							<i class="fa fa-institution"></i> <span>institutions</span></a
-						>
-					</li> -->
-					<!-- <li class="nav-item">
-						<a
-							href="{% url 'notifications:notification_page' %}"
-							class="nav-link text-light"
-						>
-							<i class="fa fa-briefcase"></i> <span>Notifications</span></a
-						>
-					</li> -->
-					<!-- <li class="nav-item">
-						<a href="{% url 'group:groups' %}" class="nav-link text-light">
-							<i class="fa fa-group"></i> <span>groups</span>
-						</a>
-					</li> -->
-					<!-- <li class="nav-item">
-						<a
-							href="{% url 'settings:user_settings' %}"
-							class="nav-link text-light"
-						>
-							<i class="fa fa-gear"></i> <span>Settings</span></a
-						>
-					</li> -->
-					<!-- <li class="nav-item">
-						<a
-							href="{% url 'account:logout' %}"
-							class="nav-link text-light bg-danger w-auto"
-						>
-							<i class="fa fa-sign-out"></i><span> Log out</span></a
-						>
-					</li> -->
-				</ul>
-			</div>	
-		</nav>
-		<div class="body">
-
-			<main class="main">
-
-				<div class="main_center">
-					{% block main %} 
-					
-					{% endblock main %}
-					
-				</div>
+			<div class="main">
+	
+				{% block main %} {% endblock main %}
+			</div>
+			<div class="right">
 				
-
-				<div class="main_right">
-					{% block right %}	
+				{% block right %}
 					
-					{% if user_pages.count > 0 %}
-						{% include 'tags/pages.html' %}
-					{% endif %}
+					{% for contact in user.contacts.all %}
+						{{contact}}
+					{% endfor %}
 						
-					{% endblock right %}	
-				</div>
+				{% endblock right %}
 					
-			</main>
-			<footer>
-						footer
-			</footer>
+			</div>
 		</div>
 		{{ user.username|json_script:"username" }}
+
+		<script src="{% static 'js/dream.js' %}"></script>
 		<script src="{% static 'js/base/script.js' %}"></script>
-		<script>
-			const closeModal = id('modal-close')
-			closeModal.addEventListener('click', function(){
-				cl('modal_wrapper')[0].style.display = 'none'
-			})
-			const openModal = id('open-modal')
-			openModal.addEventListener('click', function(){
-            let modal = cl('modal_wrapper')[0]
-            modal.style.display = 'flex'
-        })
-		</script>
 		{% block script %} {% endblock script %}
 	</body>
 </html>

@@ -18,15 +18,20 @@ from django.urls import path
 from django.urls.conf import include
 from django.conf import settings
 from django.conf.urls.static import static
+from accounts.views import RegisterUserView
 from django.contrib.auth import views as auth_view
+from rest_auth.registration.views import ConfirmEmailView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('accounts.urls')),
+    path('accounts/', include('allauth.urls')),
+    
     path('', include('home.urls')),
-    # path('notes/', include('notes.urls')),
+    path('cipher/', include('cipher.urls')),
     path('faculty/', include('school.urls')),
     path('posts/', include('posts.urls')),
     path('pages/', include('pages.urls')),
+    path('files/', include('Files.urls')),
     path('groups/', include('groups.urls')),
     path('groupchat/', include('groupchat.urls')),
     path('settings/', include('settings.urls')),
@@ -38,7 +43,8 @@ urlpatterns = [
     path('market/', include('market.urls')),
     path('api/', include('mainApi.urls')),
     path('api/auth/', include('rest_auth.urls')),
-    path('api/auth/register', include('rest_auth.registration.urls')),
+    path('api/auth/register', RegisterUserView.as_view()),
+    path(r'^api/auth/registration/account-confirm-email/(?P<key>\w+)/$', ConfirmEmailView.as_view(), name='account_confirm_email' ),
     path('search/', include('search.urls')),
     path('reset_password/', auth_view.PasswordResetView.as_view(
          template_name='auth/forgetPassword.html',

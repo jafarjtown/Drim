@@ -68,7 +68,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'rest_auth',
     'settings',
-    'market'
+    'market',
+    'cipher'
 ]
 # DEBUGGER_ENABLE = True
 # DEBUGGER_ADDRESS = "0.0.0.0"
@@ -178,7 +179,13 @@ AUTH_USER_MODEL = 'accounts.User'
 
 LOGIN_URL = 'account:login'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'jafaridris82@gmail.com'
+EMAIL_HOST_PASSWORD = '07080332077google'
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 30,
@@ -187,9 +194,20 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication'
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+        
     ]
 }
-
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserSerializer'
+}
+AUTHENTICATION_BACKENDS = (
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+ACCOUNT_LOGOUT_ON_GET = True
 GRAPH_MODELS = {
   'all_applications': True,
   'group_models': True,

@@ -8,7 +8,7 @@ from notifications.notifcations import FriendRequestNotification
 
 def Followers(request):
     user = request.user
-    friends = User.objects.filter(Q(faculty=user.faculty) | Q(department = user.department)).exclude(username = user.username)
+    friends = User.objects.all()
     f = []
     for friend in friends.all():
         if friend not in user.followings.all():

@@ -59,7 +59,8 @@ def Like(request, id):
     return JsonResponse(
         {
             'status': 200,
-            'type': t
+            'type': t,
+            'likes': post.likes.count()
         }
     )
     pass

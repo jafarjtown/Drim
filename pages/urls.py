@@ -9,6 +9,7 @@ router.register('pages', PageViewSet)
 app_name='pages'
 
 urlpatterns = [
+    path('', views.Index, name='index'),
     path('code/', views.HomePages, name='home-pages'),
     path('name/', views.HomePagesName, name='home-pages-name'),
     path('<str:name>/<slug:id>/', views.HomePage, name='home-page'),

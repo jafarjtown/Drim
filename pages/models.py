@@ -12,26 +12,19 @@ class Page(ModelHelper):
     admins = models.ManyToManyField('accounts.User', related_name='pages')
     verification_code = models.CharField(max_length=15)
     verify = models.BooleanField(default=False)
+    img = models.ImageField()
+    cover = models.ImageField()
+    
+    def get_img(self):
+        if self.img != '':
+            return self.img.url
+        return '/static/media/images/david-r-cook.jpg'
+    
+    def get_cover(self):
+        if self.cover != '':
+            return self.cover.url
+        return '/static/media/images/cristy-gowen.jpg'
     
 
     def get_all_posts(self):
         return self.posts.all()
-
-# class PagePost(ModelHelper):
-#     author = models.ForeignKey(
-#         'accounts.User', on_delete=models.SET_NULL, null=True,  related_name='page_posts')
-#     status = models.TextField()
-#     likes = models.ManyToManyField('accounts.User', related_name='page_post_likes')
-#     dislikes = models.ManyToManyField('accounts.User', related_name='page_post_dislikes')
-#     files = models.ManyToManyField('Files.File', blank=True)
-#     comments = models.ManyToManyField('PageComment', blank=True)
-#     page = models.ForeignKey('pages.Page', null=True, related_name='all_posts', on_delete=models.CASCADE)
-
-#     class Meta:
-#         ordering = ['-created_at']
-
-   
-# class PageComment(ModelHelper):
-#     author = models.ForeignKey(
-#         'accounts.User', on_delete=models.SET_NULL, null=True)
-#     status = models.TextField()

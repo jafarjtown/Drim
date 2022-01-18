@@ -11,6 +11,8 @@ def Generate_Random_Numbers(n):
         number += str(r.randint(0,9))
     return number
 
+def Index(request):
+    return render(request, 'pages/index.html')
 def HomePages(request):
     context = {}
     if request.method == 'POST':
@@ -33,9 +35,7 @@ def CreatePage(request):
     if request.method == 'POST':
         message = ''
         page_info = request.POST
-        print(page_info)
-        page = Page.objects.create(name = page_info['name'], about=page_info['about'], website_url=page_info['website_url'])
-        print(dir(user))
+        page = Page.objects.create(name = page_info['name'], about=page_info['about'])
         if user.is_authenticated:
             page.verification_code = Generate_Random_Numbers(15)
             page.admins.add(user)
@@ -46,11 +46,15 @@ def CreatePage(request):
             
             context['message'] = message
         page.save()
+        return redirect('pages:home-page', page.name, page.id)
         
-    return render(request, 'pages/page.create.html', context)
+    return render(request, 'pages/index.html', context)
 def HomePage(request,name,id):
     context = {}
+    base_template = 'base.html'
     page = Page.objects.get(id = id)
+    if request.user in page.admins.all():
+        base_template = 'pages/base.html'
     context['page'] = page
     if request.method == 'POST':
         status = request.POST.get('status')
@@ -62,6 +66,7 @@ def HomePage(request,name,id):
                 f = File.objects.create(file = f, name=status[0:10])
                 post.files.add(f)
         page.posts.add(post)
+    context['base_template'] = base_template
     return render(request, 'pages/pages.home.html', context)
 def VerficationPage(request,name,id):
     context = {}
@@ -78,7 +83,6 @@ def VerficationPage(request,name,id):
             message = f'wrong verification code... please retry again..'
             context['message'] = message
     return render(request,'pages/page.admins.html', context)
-# print(Generate_Random_Numbers(10))
 def FollowUnfollowPage(request, pgi):
     page = Page.objects.get(id = pgi)
     user = request.user

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tags %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/files/style.css' %}">
+{% endblock style %}
+    
+
+{% block main %}
+    <div class="folder">
+     {% if user.main_folder %}
+     {{user.main_folder.size}}
+    <h1>{{user.main_folder.name}} <i class="fa fa-folder-open-o"></i></h1>
+        <div class="subfolders_div">
+            <h2>Folders <i class="fa fa-folder-o"></i></h2>
+            {% if user.main_folder.subfolders.count < 1 %}
+        No Folders
+    {% endif %}
+            {% for folder in user.main_folder.subfolders.all %}
+            <div><a href="{% url 'files:sub' folder.id user.id %}" class="fa fa-folder"> {{folder.name}} {{folder.size}}</a>
+                <button onclick="Delete('{{folder.id}}')" class="fa fa-trash-o"></button>
+            </div>
+                
+            {% endfor %}
+            <form action="{% url 'files:create_folder' user.main_folder.id %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="name" >
+                <button>Create</button>
+            </form>   
+        </div>
+        <div class="files_divs">
+            <h2>files <i class="fa fa-file-o"></i></h2>
+            {% if user.main_folder.items.count < 1 %}
+        No Files
+    {% endif %}
+            {% for file in user.main_folder.items.all %}
+            <div>
+                {{file|file|safe}}
+            </div>
+                
+            {% endfor %}
+            <form enctype="multipart/form-data" action="{% url 'files:add_file' user.main_folder.id %}" method="post">
+                {% csrf_token %}
+                <input type="file" name="file">
+                <button>save</button>
+            </form> 
+        </div>
+    {% else %}
+    <form action="{% url 'files:create_main' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="name" >
+        <button>Create</button>
+    </form>
+    {% endif %}
+    </div>
+    
+        
+{% endblock main %}
+    
+{% block script %}
+<script>
+    async function Delete(id){
+        let req = await fetch(`/files/main.subfolder.delete.file/${id}/`)
+        let res = await req.json()
+    }
+</script>
+{% endblock script %}

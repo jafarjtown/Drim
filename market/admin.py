@@ -6,8 +6,7 @@ from .models import Market, Shop, Item
 
 @admin.register(Market)
 class MarketAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'page')
-    list_filter = ('page',)
+    list_display = ('id', 'name')
     raw_id_fields = ('shops',)
     search_fields = ('name',)
 

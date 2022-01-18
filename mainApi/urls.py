@@ -25,8 +25,7 @@ urlpatterns = [
     path('page/', include(pages_router.urls)),
     path('group/', include(groups_router.urls)),
     path('message/', include(message_router.urls)),
-    path('notification/', include(notification_router.urls))
-
-
+    path('notification/', include(notification_router.urls)),
+    path('institution/', include(institution_router.urls))
 
 ]

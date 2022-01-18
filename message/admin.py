@@ -1,6 +1,6 @@
-# from django.contrib import admin
+from django.contrib import admin
 
-# from .models import UserChatBox, ChatBox, Message, Thread
+from .models import UserChatBox, ChatBox, Message, Thread
 
 
 # @admin.register(UserChatBox)
@@ -11,12 +11,12 @@
 #     date_hierarchy = 'created_at'
 
 
-# @admin.register(ChatBox)
-# class ChatBoxAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'created_at', 'updated_at', 'friend')
-#     list_filter = ('created_at', 'updated_at', 'friend')
-#     raw_id_fields = ('messages', 'unseen_messages')
-#     date_hierarchy = 'created_at'
+@admin.register(ChatBox)
+class ChatBoxAdmin(admin.ModelAdmin):
+    list_display = ('id', 'created_at', 'updated', 'friend')
+    list_filter = ('created_at', 'updated', 'friend')
+    raw_id_fields = ('messages', 'unseen_messages')
+    date_hierarchy = 'created_at'
 
 
 # @admin.register(Message)
@@ -26,9 +26,9 @@
 #     date_hierarchy = 'created_at'
 
 
-# @admin.register(Thread)
-# class ThreadAdmin(admin.ModelAdmin):
-#     list_display = ('id',)
-#     # list_filter = ('created_at', 'updated_at')
-#     raw_id_fields = ('chats',)
-#     # date_hierarchy = 'created_at'
+@admin.register(Thread)
+class ThreadAdmin(admin.ModelAdmin):
+    list_display = ('id',)
+    # list_filter = ('created_at', 'updated_at')
+    raw_id_fields = ('chats',)
+    # date_hierarchy = 'created_at'

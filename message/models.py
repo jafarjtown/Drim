@@ -14,8 +14,8 @@ class UserChatBox(ModelHelper):
         return n
 
 class ChatBox(ModelHelper):
-    friend = models.ForeignKey("accounts.User",on_delete=models.CASCADE)
-    messages = models.ManyToManyField("Message")
+    friend = models.ForeignKey("accounts.Contact",on_delete=models.CASCADE)
+    messages = models.ManyToManyField("Message", related_name='chat_box')
     unseen_messages = models.ManyToManyField('Message', related_name='unseen_messages')
 
     def unseen(self):
@@ -25,8 +25,9 @@ class ChatBox(ModelHelper):
     def seen(self):
         self.unseen_messages.clear()
     def get_thread_id(self):
-        if self.thread:
+        if len(self.thread.all()) > 0:
             return self.thread.all()[0].id
+        return None
 
 class Message(models.Model):
     sender = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name='messages_sent')
@@ -38,6 +39,10 @@ class Message(models.Model):
 
     def order_by(self):
         return self.created_at
+    
+    def not_seen(self, user):
+        cht = self.chat_box.all()
+        print(cht)
 
 
 class Thread(models.Model):

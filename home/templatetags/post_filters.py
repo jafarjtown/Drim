@@ -82,19 +82,20 @@ def file_type(value):
                     result += f'<audio src="{v.file.url}" /></audio>'
                 elif t in videos:
                     result += f'''
-                    <video id='video-{v.file.url}' controlsList="nofullscreen nodownload noremoteplayback noplay" preload="metadata" max-height="200" class="post_video"/>
+                    <video id='video{v.file.name}' controlsList="nofullscreen nodownload noremoteplayback noplay" preload="metadata" max-height="200" class="post_video"/>
                         <source src="{v.file.url}" />
                     </video>
-                    <div class='video_controls'>
-                        <button onclick='PlayVideo(this,"video-{v.file.url}")' class='fa fa-3x fa-play'></button>
+                    
+                    <!-- <div class='video_controls'>
+                      <button onclick='playVideo("video{v.file.name}")' class='fa fa-3x fa-play'></button>
                        
-                    </div>
+                    </div> -->
                     '''
                 elif t in pictures:
                     result += f'<img src="{v.file.url}" loading="lazy"/></img>'
                 else:
                     print(v.file)
-                    result += f'<button onclick="saveFile({v.file.url},{v.file.url},'')">Download file</button>v.file.url'
+                    result += f'<button id="v{v.file.name}" onclick="saveFile({v.file.url},{v.file.url},'')">Download file</button>v.file.url'
         result += '</div>'
     return result
 
@@ -164,6 +165,13 @@ def text_format(text):
     
     return text
 
+def truncate(text):
+    if len(text) > 499:
+        return text[0:500] + '...'
+    return text
+
+register.filter('truncate', truncate)
 register.filter('file_type', file_type)
 register.filter('file_type_e', file_type_e)
 register.filter('text_format', text_format)
+

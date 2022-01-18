@@ -26,8 +26,8 @@ def Escape(string):
     return text
 @login_required()
 def Home(request):
-    
     story=Story.objects.all()
+    # delete expired stories
     for st in story:
         st.expire()
     context = {}
@@ -61,7 +61,6 @@ def Home(request):
     # creating new posts
     if request.method == 'POST':
         text = request.POST
-        print(text)
         files = request.FILES
         status = text['status']
         estatus = Escape(status)
@@ -102,7 +101,7 @@ def Home(request):
                 else: p.save()
 
         except Exception as e:
-            print(e)
+            pass
     posts = Post.objects.select_related('author').defer('author__followers','author__followings','author__posts','author__activities').filter(
         Q(author = user) |
         Q(author__username__in = user.followings.values_list('username')) |
@@ -113,4 +112,5 @@ def Home(request):
     page_number = request.GET.get('page')
     obj_page = paginator.get_page(page_number)
     context['obj_page'] = obj_page
+    context['posts'] = posts
     return render(request, 'home/index.html', context)

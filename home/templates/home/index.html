@@ -1,1 +1,61 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load post_filters %}
+{% block style %}
+    <style>
+        div[slot='files'] video, div[slot='files'] img{
+            width: 100%;
+        }
+        div[slot='avatar'] img{
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 10px;
+            border-radius: 100%;
+            box-shadow: 0 0 0 1px lightgray;
+        }
+        .posts{
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        my-post{
+            display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+        }
+    </style>
+{% endblock style %}    
+{% block main %}
+<div class="posts">
+    {% for post in posts %}
+    <my-post id="{{post.id}}" likes="{{post.likes.count}}">
+        <div slot="username">{{post.author.username}}</div>
+        <div slot="status">{{post.status|truncate}}</div>
+        <div slot="date">{{post.created_at}}</div>
+        <div slot="avatar">
+            <img src='{{post.author.get_avatar}}' />
+        </div>
+        
+        {% if post.files != '' %}
+            <div slot='files' >
+                
+                {{post.files.all|file_type|safe}}
+            </div>
+        {% endif %}
+            
+    </my-post>
+{% endfor %}
+    
+
+</div>
+{% endblock main %}
+
+
+
+{% block script %}
+    <script src="{% static 'js/home/script.js' %}"></script>
+{% endblock script %}

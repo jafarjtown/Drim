@@ -1,0 +1,273 @@
+#passwordView, #message, #new, #login, #register{
+    display: none;
+}
+#passwordView{
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+#new{
+    width: 90%;
+}
+#new .form_input{
+    width: 100%;
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: system-ui;
+}
+:root{
+    background-image: linear-gradient(28deg, #0063e5b6 10%,#0064e5);
+    height: 100%;
+}
+body{
+    color: white;
+    transition:background-position .1s  ease-in;
+}
+.loading_div{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    background-color: #ffffff52;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+}
+.loading_box{
+    width: 100%;
+    height: 10px;
+}
+.loading_box > div{
+    background-color: #ffffff;
+    width: 50%;
+    height: 100%;
+    border-radius: 10px;
+    animation: run 5s infinite ease-in;
+    transition:all 1s ease-in-out;
+}
+@keyframes run {
+    0%{
+        transform: translate(0%);
+    }
+    10%{
+        transform: translate(70%);
+    }
+    20%{
+        transform: translate(35%);
+    }
+    30%{
+        transform: translate(100%);
+    }
+    40%{
+        transform: translate(0%);
+    }
+    50%{
+        transform: translate(90%);
+    }
+    60%{
+        transform: translate(55%);
+    }
+    70%{
+        transform: translate(10%);
+    }
+    80%{
+        transform: translate(40%);
+    }
+    90%{
+        transform: translate(100%);
+    }
+
+    100%{
+        transform: translate(0%);
+    }
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: 50px 0;
+    height: max-content;
+    margin: 20px 0;
+}
+.connect{
+    padding: 5px 20px;
+    margin-bottom: 27px;
+}
+.connect p{
+    font-size: small;
+}
+.connect h3{
+    font-size: x-large;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.form_wrapper > .form{
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+#st{
+    color: #f1f1f1;
+    width: 90%;
+    margin-bottom: 17px;
+}
+.form_con{
+    width: 100%;
+    margin: auto;
+    border-radius: 5px;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: height .2s ease-in;
+    background-color: rgb(234, 255, 255);
+    color: black;
+}
+.form_con  > div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: display 1s;
+}
+.form_con >.form{
+    transition: all 1s ease-in-out;
+    overflow: hidden;
+}
+form > .errorlist{
+    list-style: none;
+}
+form > .errorlist > li{
+   color: transparent;
+}
+form > .errorlist > li > .errorlist{
+    color: white;
+    list-style: none;
+    padding: 2px;
+}
+.tr_log{
+    max-height: 200px !important;
+}
+.tr_sign{
+    max-height: 400px !important;
+}
+.form_input{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 90%;
+    color: gray;
+}
+.form_input label{
+    font-size: 12px;
+}
+.form_input div{
+    box-shadow:0px 0px 2px 0px grey;
+    border-radius: 4px;
+    background-color: white;
+    margin: 5px 0;
+}
+.form_input input{
+    padding: 7px;
+    font-size:13px;
+    border-radius: 2px;
+    border: none;
+    width: 100%;
+    outline: none;
+    background-color: transparent;
+}
+#btns{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.btn{
+    width: 90%;
+    margin-bottom: 10px;
+    border: none;
+    outline: none;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #0064e5;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+hr{
+    width: 90%;
+    margin-top: 15px;
+}
+.message{
+    width: 90%;
+    color: #666666;
+    font-weight: 500;
+    /* color: #f1f1f1; */
+    width: 90%;
+    margin-bottom: 17px;
+}
+.social > b{
+    margin: 15px 0;
+}
+.social button{
+    background-color: #0063e582;
+}
+.user{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+.user > img{
+    width: 40px;
+    border-radius: 50%;
+    height: 40px;
+    border: 1px solid lightgray;
+    object-fit: contain;
+    image-rendering: crisp-edges;
+    margin-right: 10px;
+}
+.user > span{
+    font-weight: 700;
+}
+@media screen and (min-width: 768px) {
+    .container{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        
+    }
+    .container > div{
+        width: 50%;
+    }
+    body{
+        background-position: center;
+    }
+    .form_wrapper{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+        /* width: 100%; */
+        margin-right: 20px;
+    }
+    .form_wrapper > .form{
+        min-width: 500px;
+    }
+    .connect{
+        display: flex;
+        flex-direction: column;
+        justify-content:  center;
+        height: 400px;
+    }
+    .connect h3{
+        font-size: 40px;
+    }
+}
+.error{
+    color: red;
+    font-size: small;
+    display: none;
+    transition: all 1s ease-in;
+}

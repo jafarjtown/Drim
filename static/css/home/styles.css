@@ -43,6 +43,36 @@
 .bg5{
     background-image: linear-gradient(30deg, rgb(185, 103, 103), rgb(255, 0, 221));
 }
+.fetch_error,.loading_div{
+    width: 100%;
+    padding: 5px;
+    background: red;
+    border-radius: 5px;
+}
+.error_text{
+    color: white;
+    font-weight: 600;
+}
+.loading_div{
+    background-color: #0000ff00;
+    height: 2em;
+    display: flex;
+    justify-content: center;;
+}
+.loading_stick{
+    width: 2px;
+    height: 20px;
+    background-color: #5900f3;
+    animation: ld .2s infinite;
+}
+@keyframes ld {
+    0%{
+        transform: rotate(360deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}
 /* mobile device */
 @media screen and (max-width: 425px) {
 }

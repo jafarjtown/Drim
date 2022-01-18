@@ -141,14 +141,14 @@ class OneToOneChatConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def save_messages(self, text):
         thread = Thread.objects.get(id = self.thread_id).chats
-        friendchat = thread.exclude(friend = self.me)
-        id = friendchat[0].friend.id
-        friend = User.objects.prefetch_related('followers','followings','subscribed','activities').get(id = id)
-        user = User.objects.prefetch_related('followers','followings','subscribed','activities').get(username = self.me.username)
-        userchat = user.user_chat.chats.get( friend = friend)
+        friendchat = thread.exclude(friend__resipient = self.me)
+        id = friendchat[0].friend.resipient.id
+        friend = User.objects.prefetch_related('followers','followings','activities').get(id = id)
+        user = User.objects.prefetch_related('followers','followings','activities').get(username = self.me.username)
+        userchat = user.user_chat.chats.get( friend__resipient = friend)
         userchat.seen()
         friendchat = friend.user_chat.chats
-        chatbox = friendchat.get( friend = user)
+        chatbox = friendchat.get(friend__resipient = user)
         m = Message.objects.create(sender = user, receiver = friend, text = text)
         userchat.messages.add(m)
         chatbox.messages.add(m)

@@ -29,7 +29,6 @@
         }
     </style>
 {% endblock style %}    
-{% block main %}
 <div class="posts">
     {% for post in posts %}
     <my-post id="{{post.id}}" likes="{{post.likes.count}}">
@@ -52,8 +51,6 @@
     
 
 </div>
-{% endblock main %}
-
 
 
 {% block script %}

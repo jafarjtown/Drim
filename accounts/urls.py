@@ -11,7 +11,7 @@ router = DefaultRouter()
 router.register('users', UserViewSet)
 app_name = 'account'
 urlpatterns = [
-    path('', views.Account, name='account'),
+    path('', views.Account, name='index'),
     path('type/student', views.studentAccount, name='student_create'),
     path('type/tutor', views.tutorAccount, name='tutor_create'),
     path('<slug:id>/profile', views.ViewAccount, name='profile'),

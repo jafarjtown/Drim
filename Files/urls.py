@@ -9,7 +9,7 @@ router.register('files', FileViewSet)
 
 app_name = 'files'
 urlpatterns = [
-    path("main.folder/", mainFolder, name="main"),
+    path("main.folder/", mainFolder, name="index"),
     path("main.folder/<slug:folder_id>.user.<slug:user_id>/", subFolder, name="sub"),
     path("main.folder/view.<slug:folder_id>.user.<slug:user_id>/", subFolder, name="view_folder"),
     path("main.folder.create/", createFolderMain, name="create_main"),

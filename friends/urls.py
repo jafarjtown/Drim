@@ -9,7 +9,7 @@ app_name = 'friends'
 # router.register('activities', )
 
 urlpatterns = [
-    path('', views.Followers, name='friends'),
+    path('', views.Followers, name='index'),
     path('request', views.RequestFriends, name='request_friends'),
     path('follow/<slug:pk>', views.Follow, name='follow'),
     path('unfollow/<slug:pk>', views.unFollow, name='unfollow'),

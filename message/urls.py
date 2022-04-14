@@ -10,7 +10,7 @@ router.register('messages', MessageViewSet)
 
 app_name = 'messenger'
 urlpatterns = [
-    path('', views.Messenger, name='message'),
+    path('', views.Messenger, name='index'),
     path('<slug:uid>/', views.MessengerStartChat, name='start-chat'),
     path('<slug:uid>/chat/', views.MessengerChat, name='chat'),
     path('<slug:uid>/chat/setting/', views.MessengerChatSetting, name='chat-setting'),

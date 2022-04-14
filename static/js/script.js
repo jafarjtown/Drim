@@ -54,7 +54,7 @@ function runCheck() {
 document.querySelectorAll('input')?.forEach(input => {
     input.addEventListener('input', ()=>{
         runCheck()
-        console.log('running check')
+        
     })
     
 })

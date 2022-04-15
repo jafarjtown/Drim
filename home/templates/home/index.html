@@ -2,6 +2,8 @@
 {% load static %}
 {% load post_filters %}
 {% block style %}
+<link rel="stylesheet" href="{% static 'css/home/styles.css' %}" />
+
     <style>
         div[slot='files'] video, div[slot='files'] img{
             width: 100%;
@@ -28,7 +30,98 @@
     width: 100%;
         }
     </style>
-{% endblock style %}    
+    
+{% endblock style %} 
+
+
+{% block main %}
+    <div class="stories-wrapper">
+
+        
+        
+            <div class="story">
+                <img src="{{user.avatar.url}}" alt="" class="sts">
+                <div class="det">
+                    <h3>{{user.get_full_name|truncatechars:6}}</h3>
+                    <p>{{'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit necessitatibus officiis vitae dolorum laudantium. Quisquam quaerat ullam consectetur magni, unde enim voluptatibus eum repellendus architecto quis corporis? Corrupti, doloribus? Quo.'|truncatechars:9}}</p>
+                </div>
+            </div>
+
+            <div class="story">
+                <img src="" alt="" class="sts">
+                <div class="det">
+                    <h3>Name</h3>
+                    <p>{{'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit necessitatibus officiis vitae dolorum laudantium. Quisquam quaerat ullam consectetur magni, unde enim voluptatibus eum repellendus architecto quis corporis? Corrupti, doloribus? Quo.'|truncatechars:9}}</p>
+                </div>
+            </div>
+
+            <div class="story">
+                <img src="" alt="" class="sts">
+                <div class="det">
+                    <h3>Name</h3>
+                    <p>{{'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit necessitatibus officiis vitae dolorum laudantium. Quisquam quaerat ullam consectetur magni, unde enim voluptatibus eum repellendus architecto quis corporis? Corrupti, doloribus? Quo.'|truncatechars:9}}</p>
+                </div>
+            </div>
+
+            <div class="story">
+                <img src="" alt="" class="sts">
+                <div class="det">
+                    <h3>Name</h3>
+                    <p>{{'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit necessitatibus officiis vitae dolorum laudantium. Quisquam quaerat ullam consectetur magni, unde enim voluptatibus eum repellendus architecto quis corporis? Corrupti, doloribus? Quo.'|truncatechars:9}}</p>
+                </div>
+            </div>
+
+            <div class="story">
+                <img src="" alt="" class="sts">
+                <div class="det">
+                    <h3>Name</h3>
+                    <p>{{'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit necessitatibus officiis vitae dolorum laudantium. Quisquam quaerat ullam consectetur magni, unde enim voluptatibus eum repellendus architecto quis corporis? Corrupti, doloribus? Quo.'|truncatechars:9}}</p>
+                </div>
+            </div>
+
+            <div class="story">
+                <img src="" alt="" class="sts">
+                <div class="det">
+                    <h3>Name</h3>
+                    <p>{{'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit necessitatibus officiis vitae dolorum laudantium. Quisquam quaerat ullam consectetur magni, unde enim voluptatibus eum repellendus architecto quis corporis? Corrupti, doloribus? Quo.'|truncatechars:9}}</p>
+                </div>
+            </div>
+
+            <div class="story">
+                <img src="" alt="" class="sts">
+                <div class="det">
+                    <h3>Name</h3>
+                    <p>{{'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit necessitatibus officiis vitae dolorum laudantium. Quisquam quaerat ullam consectetur magni, unde enim voluptatibus eum repellendus architecto quis corporis? Corrupti, doloribus? Quo.'|truncatechars:9}}</p>
+                </div>
+            </div>
+
+            <div class="story">
+                <img src="" alt="" class="sts">
+                <div class="det">
+                    <h3>Name</h3>
+                    <p>{{'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit necessitatibus officiis vitae dolorum laudantium. Quisquam quaerat ullam consectetur magni, unde enim voluptatibus eum repellendus architecto quis corporis? Corrupti, doloribus? Quo.'|truncatechars:9}}</p>
+                </div>
+            </div>
+        
+    </div>
+    <div class="share-wrapper">
+        <ul id="share-btns">
+            <li>
+                <button>write</button>
+            </li>
+            <li>
+                <button>new story</button>
+            </li>
+            <li>
+                <button>upload file</button>
+            </li>
+            <li>
+                <button>groups</button>
+            </li>
+        </ul>
+    </div>
+{% endblock main %}
+    
 <div class="posts">
     {% for post in posts %}
     <my-post id="{{post.id}}" likes="{{post.likes.count}}">

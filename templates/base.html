@@ -25,10 +25,35 @@
 	</head>
 	<body>
 
+		<div class="loading-wrapper">
+			<div >
+				<h2 class="loading-text">Loading... please wait</h2>
+			</div>
+		</div>
+
+		<div class="modal-wrapper">
+			<div class="modal-controls">
+				<button class="modal-close">close</button>
+			</div>
+			<div class="modal">
+				<div class="write">
+					<h2 class="title">new write up...</h2>
+					<textarea name="post-text" cols="30" rows="10" placeholder="your text goes here ... eg. hello world!"></textarea>
+					<div class="settings">
+						<button>add img</button>
+					</div>
+					<button id="save-post">save</button>
+				</div>
+			</div>
+		</div>
+
 		<nav>
 			<div class="logo-wrapper">
 				<h2 class="logo">Dream</h2>
 			</div>
+			<form class="search-wrapper">
+				<input type="search" name="search" placeholder="Search friends, post, pages ...">
+			</form>
 			<div class="links-wrapper">
 				<ul>
 					<li><a href="/">Dashboard</a></li>
@@ -37,9 +62,9 @@
 
 					<li><a href="{% url 'files:index' %}">Files</a></li>
 					<li><a href="{% url 'settings:index' %}">Config</a></li>
-					<li><a href="/">Wallet</a></li>
+					<!-- <li><a href="/">Wallet</a></li> -->
 					<li><a href="{% url 'account:index' %}">Account</a></li>
-					<li><a href="{% url 'account:logout' %}">Log out</a></li>
+					<li><button id="theme">change theme</button></li>
 				</ul>
 			</div>
 			<div class="avatar-wrapper">

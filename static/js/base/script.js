@@ -26,12 +26,7 @@ $(document).ready(loadPreference);
 function loadPreference() {
   // theme preference
   let theme = localStorage.getItem("theme")
-    ? localStorage.getItem("theme")
-    : "light";
-  if (theme !== "light") {
-    $("#theme-toggler").innerHTML('<i class="fa fa-sun-o"></i>');
-    $("body").toggleClass(theme, "light");
-  }
+if(theme) qs('body').classList.add(theme)
 }
 function addEventListener(
   type,
@@ -58,7 +53,7 @@ function createElement(type, options = {}){
 	const element = document.createElement(type)
 	Object.entries(options).forEach(([key, value]) => {
 		if(key === 'class'){
-			element.classlist.add(value)
+			element.classList.add(value)
 			return
 		}
 		if(key === 'dataset'){
@@ -83,4 +78,31 @@ function sleep(duration){
 	})
 }
 
-console.log(qsa('a', qs('nav')))
+addEventListener('click', '#theme' , e => {
+qs('body').classList.toggle('light')
+let theme = localStorage.getItem("theme")
+if(theme) localStorage.removeItem('theme')
+else localStorage.setItem('theme', 'light')
+},{}, qs('nav'))
+
+addEventListener('click', '.modal-close', (e)=> {
+    qs('.modal-wrapper').style.display = 'none'
+}, {}, qs('.modal-wrapper'))
+
+function loading(cb, opt = {}){
+	qs('.loading-wrapper').style.display = 'flex'
+	if(typeof cb === 'string'){
+		qs('.loading-text').innerText = cb
+		sleep(2000).then(()=> {qs('.loading-wrapper').style.display = 'none'
+		qs('.loading-text').innerText = 'loading... please wait.'})
+	}
+	if(typeof cb === 'function') cb()
+	if('success' in opt){
+		if (opt.success) {
+			sleep(2500).then(()=>
+			qs(opt.target).style.display = 'none'
+			)
+		}
+	}
+	
+}

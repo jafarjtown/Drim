@@ -1,78 +1,63 @@
-.new-post-form{
+.stories-wrapper{
     width: 100%;
+    height: 200px;
+    overflow: scroll;
+    padding: 10px;
+    display: flex;
+}
+.story{
     height: 100%;
-    padding: 10px;
+    min-width: 130px;
+    margin: 0 5px;
+    position: relative;
 }
-.new-post-form textarea{
+.story img{
+    height: 100%;
     width: 100%;
-    height: 250px;
-    resize: none;
-    padding: 10px;
+    object-fit: cover;
+    border-radius: 10px;
 }
-.new-post-div-buttons{
+.story .det{
+    position: absolute;
+    top: 0;
+    height: 180px;
+    width: 100%;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.494);
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
+    padding: 10px ;
+    border-radius: 10px;
+    color: var(--body-color);
 }
-.new-post-div-buttons button{
-    width: fit-content;
-    padding: 2px 7px;
-    margin: 5px 0;
+.stories-wrapper::-webkit-scrollbar{
+    display: none;
 }
-.text10{
-    height: 100px;
+.share-wrapper{
+    width: 90%;
+    margin: 5px auto;
+    background-color: var(--nav-bg);
+    color: var(--nav-color);
+    box-shadow: var(--box-shadow);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    white-space: pre-wrap;
-    font-size: large;
-    font-weight: 700;
+    padding: 10px;
+    border-radius: 10px;
 }
-.bg1{
-    background-image: linear-gradient(190deg, rgb(211, 117, 9), green);
+.share-wrapper ul{
+    display: flex;
+    list-style: none;
+    justify-content: space-evenly;
 }
-.bg2{
-    background-image: linear-gradient(10deg, rgb(43, 13, 13), rgb(81, 11, 99));
-}
-.bg3{
-    background-image: linear-gradient(70deg, rgb(14, 245, 53), rgb(45, 0, 128));
-}
-.bg4{
-    background-image: linear-gradient(47deg, rgb(248, 163, 6), rgb(14, 98, 223));
-}
-.bg5{
-    background-image: linear-gradient(30deg, rgb(185, 103, 103), rgb(255, 0, 221));
-}
-.fetch_error,.loading_div{
-    width: 100%;
-    padding: 5px;
-    background: red;
+.share-wrapper ul button{
+    padding: 7px;
     border-radius: 5px;
-}
-.error_text{
-    color: white;
+    background-color: var(--nav-bg);
+    color: var(--nav-color);
+    border: 2px solid var(--nav-color);
+    font-size: medium;
     font-weight: 600;
-}
-.loading_div{
-    background-color: #0000ff00;
-    height: 2em;
-    display: flex;
-    justify-content: center;;
-}
-.loading_stick{
-    width: 2px;
-    height: 20px;
-    background-color: #5900f3;
-    animation: ld .2s infinite;
-}
-@keyframes ld {
-    0%{
-        transform: rotate(360deg);
-    }
-    100%{
-        transform: rotate(0deg);
-    }
-}
-/* mobile device */
-@media screen and (max-width: 425px) {
+    text-align: center;
+    cursor: pointer;
 }
